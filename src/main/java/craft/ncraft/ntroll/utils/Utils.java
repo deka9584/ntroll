@@ -85,6 +85,6 @@ public class Utils {
         }
         
         plugin.debugLog("Spawning entity on player location, Entity: " + entityType.name());
-        return player.getWorld().spawnEntity(behind, entityType);
+        return player.getWorld().spawnEntity(playerLoc, entityType);
     }
 }
