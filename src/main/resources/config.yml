@@ -1,0 +1,25 @@
+prefix: "&c&lNTroll &8&l»"
+no-permission-msg: "%prefix% &cDai bro fai il serio..."
+troll-enabled-msg: "%prefix% &aTroll plugin abilitato! (fatto backup?)"
+troll-disabled-msg: "%prefix% &cTroll plugin disabilitato!"
+troll-status-msg: "%prefix% &6Il troll plugin è %status%!"
+added-player-msg: "%prefix% &6Player %player% è stato aggiunto!"
+removed-player-msg: "%prefix% &6Player %player% è stato rimosso!"
+target-player-list: "%prefix% &6Giocatori aggiunti: %list%"
+backup-reminder: "%prefix% &6IMPORTANTE: Fare sempre il backup del server prima di attivare"
+# ENABLE THE ENTIRE PLUGIN
+# Backup the server before!
+enable-troll: false
+debug: false
+target-players: []
+unluckyblock-break-chance: 25
+unluckyblock-break-actions:
+  spawn-creeper: 10
+  spawn-invisible-creeper: 5
+  spawn-invisible-charged-creeper: 5
+  disable-drops: 30
+  place-bedrock: 5
+  place-obsidian: 5
+  destroy-item: 10
+  explosion: 10
+  cancel-break: 20

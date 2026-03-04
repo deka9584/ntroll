@@ -1,0 +1,3 @@
+# ntroll
+
+Spigot Troll plugin

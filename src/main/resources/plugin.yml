@@ -1,0 +1,15 @@
+name: NTroll
+version: "1.0"
+author: NCraft
+main: craft.ncraft.ntroll.NTroll
+commands:
+   ntroll:
+    description: main command
+    permission: ntroll.command
+permissions:
+  ntroll.command:
+    description: Allows main command
+    default: op
+  ntroll.command.admin:
+    description: Allows troll on/off/status
+    default: op
