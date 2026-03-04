@@ -28,3 +28,4 @@ unluckyblock-break-actions:
 cancel-block-place-chance: 15
 cancel-block-place-sneaking-chance: 30
 auto-ignite-tnt-chance: 50
+rocket-explosion-chance: 25

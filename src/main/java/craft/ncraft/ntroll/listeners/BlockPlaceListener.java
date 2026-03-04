@@ -3,7 +3,6 @@ package craft.ncraft.ntroll.listeners;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -43,6 +42,7 @@ public class BlockPlaceListener implements Listener {
         if (event.getBlock().getType() == Material.TNT && utils.chancePercent(plugin.getConfig().getInt("auto-ignite-tnt-chance"))) {
             event.getBlock().getWorld().spawnEntity(event.getBlock().getLocation(), EntityType.PRIMED_TNT);
             event.setCancelled(true);
+            plugin.debugLog("Auto ignite TNT to player " + player.getName());
         }
     }
 }
