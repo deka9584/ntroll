@@ -23,3 +23,5 @@ unluckyblock-break-actions:
   destroy-item: 10
   explosion: 10
   cancel-break: 20
+cancel-block-place-chance: 15
+cancel-block-place-sneaking-chance: 30

@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import craft.ncraft.ntroll.commands.MainCommand;
 import craft.ncraft.ntroll.listeners.BlockBreakListener;
+import craft.ncraft.ntroll.listeners.BlockPlaceListener;
 import craft.ncraft.ntroll.managers.TargetPlayerManager;
 import craft.ncraft.ntroll.managers.UnluckyBlocksManager;
 import craft.ncraft.ntroll.utils.Utils;
@@ -69,6 +70,7 @@ public class NTroll extends JavaPlugin {
     public void registerEvents() {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new BlockBreakListener(this), this);
+        pm.registerEvents(new BlockPlaceListener(this), this);
     }
 
     public void reload() {
