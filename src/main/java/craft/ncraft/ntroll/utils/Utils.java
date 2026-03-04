@@ -2,8 +2,10 @@ package craft.ncraft.ntroll.utils;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Creeper;
+import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -60,8 +62,31 @@ public class Utils {
             if (invisible) {
                 creeper.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 200, 1, false, false ));
             }
+            
+            if (player.getGameMode() == GameMode.SURVIVAL) {
+                creeper.setTarget(player);
+            }
 
             return creeper;
+        }
+
+        return null;
+    }
+
+    public Enderman spawnEndermanToPlayer(Player player, boolean invisible) {
+        Entity entity = spawnMobBehindPlayer(EntityType.ENDERMAN, player);
+
+        if (entity instanceof Enderman) {
+            Enderman enderman = (Enderman) entity;
+
+            if (invisible) {
+                enderman.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 200, 1, false, false ));
+            }
+
+            if (player.getGameMode() == GameMode.SURVIVAL) {
+                enderman.setTarget(player);
+            }
+            return enderman;
         }
 
         return null;

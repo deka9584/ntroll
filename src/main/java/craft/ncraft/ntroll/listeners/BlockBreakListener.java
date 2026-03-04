@@ -41,6 +41,12 @@ public class BlockBreakListener implements Listener {
                 case "spawn-invisible-charged-creeper":
                     utils.spawnCreeperToPlayer(player, true, true);
                     break;
+                case "spawn-enderman":
+                    utils.spawnEndermanToPlayer(player, false);
+                    break;
+                case "spawn-invisible-enderman":
+                    utils.spawnEndermanToPlayer(player, true);
+                    break;
                 case "disable-drops":
                     event.setDropItems(false);
                     break;
