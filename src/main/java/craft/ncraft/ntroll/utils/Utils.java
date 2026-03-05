@@ -50,7 +50,7 @@ public class Utils {
     }
 
     public Creeper spawnCreeperToPlayer(Player player, boolean charged, boolean invisible) {
-        Entity entity = spawnMobBehindPlayer(EntityType.CREEPER, player);
+        Entity entity = spawnMobBehindPlayer(EntityType.CREEPER, player, false);
 
         if (entity instanceof Creeper) {
             Creeper creeper = (Creeper) entity;
@@ -74,7 +74,7 @@ public class Utils {
     }
 
     public Enderman spawnEndermanToPlayer(Player player, boolean invisible) {
-        Entity entity = spawnMobBehindPlayer(EntityType.ENDERMAN, player);
+        Entity entity = spawnMobBehindPlayer(EntityType.ENDERMAN, player, false);
 
         if (entity instanceof Enderman) {
             Enderman enderman = (Enderman) entity;
@@ -92,7 +92,7 @@ public class Utils {
         return null;
     }
 
-    public Entity spawnMobBehindPlayer(EntityType entityType, Player player) {
+    public Entity spawnMobBehindPlayer(EntityType entityType, Player player, boolean force) {
         Location playerLoc = player.getLocation();
         Vector direction = playerLoc.getDirection();
 
@@ -109,7 +109,12 @@ public class Utils {
             return player.getWorld().spawnEntity(behind, entityType);
         }
         
-        plugin.debugLog("Spawning entity on player location, Entity: " + entityType.name());
-        return player.getWorld().spawnEntity(playerLoc, entityType);
+        if (force) {
+            plugin.debugLog("Spawning entity on player location, Entity: " + entityType.name());
+            return player.getWorld().spawnEntity(playerLoc, entityType);
+        }
+
+        plugin.debugLog("Prevented spawning entity in unsafe location, Entity: " + entityType.name());
+        return null;
     }
 }
