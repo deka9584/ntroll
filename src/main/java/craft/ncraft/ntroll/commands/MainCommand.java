@@ -37,6 +37,7 @@ public class MainCommand implements CommandExecutor {
                 }
 
                 plugin.reload();
+                cs.sendMessage(utils.getMsgFromCfg("config-reloaded-msg"));
                 return true;
             }
 
