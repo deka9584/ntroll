@@ -33,12 +33,12 @@ public class UnluckyBlocksManager {
     }
 
     public String getRandomAction() {
-        int totalWeight = actions.stream().mapToInt(UnluckyAction::getChange).sum();
+        int totalWeight = actions.stream().mapToInt(UnluckyAction::getChance).sum();
         int randomNumber = utils.getRandomInt(0, totalWeight);
         int currWeight = 0;
 
         for (UnluckyAction ua : actions) {
-            currWeight += ua.getChange();
+            currWeight += ua.getChance();
 
             if (randomNumber < currWeight) {
                 return ua.getName();

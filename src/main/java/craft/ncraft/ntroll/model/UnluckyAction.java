@@ -13,7 +13,7 @@ public class UnluckyAction {
         return actionName;
     }
 
-    public int getChange() {
+    public int getChance() {
         return chance;
     }
 }

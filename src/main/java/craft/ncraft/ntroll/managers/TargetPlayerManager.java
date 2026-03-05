@@ -17,10 +17,7 @@ public class TargetPlayerManager {
     }
 
     public boolean isTargetPlayer(String name) {
-        if (players != null) {
-            return players.contains(name);
-        }
-        return false;
+        return players != null && players.contains(name);
     }
 
     public boolean addTrollPlayer(String name) {

@@ -60,7 +60,7 @@ public class Utils {
             }
 
             if (invisible) {
-                creeper.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 200, 1, false, false ));
+                creeper.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 200, 1, false, false));
             }
             
             if (player.getGameMode() == GameMode.SURVIVAL) {
