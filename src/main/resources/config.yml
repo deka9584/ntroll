@@ -1,5 +1,6 @@
 prefix: "&c&lNTroll &8&l»"
 no-permission-msg: "%prefix% &cDai bro fai il serio..."
+config-reloaded-msg: "%prefix% &6Config reloaded..."
 troll-enabled-msg: "%prefix% &aTroll plugin abilitato! (fatto backup?)"
 troll-disabled-msg: "%prefix% &cTroll plugin disabilitato!"
 troll-status-msg: "%prefix% &6Il troll plugin è %status%!"
@@ -19,14 +20,14 @@ unluckyblock-break-actions:
   spawn-invisible-charged-creeper: 5
   spawn-enderman: 5
   spawn-invisible-enderman: 5
-  disable-drops: 20
+  disable-drops: 25
   place-bedrock: 5
   place-obsidian: 5
   destroy-item: 10
-  explosion: 10
+  explosion: 5
   cancel-break: 20
 cancel-block-place-chance: 15
 cancel-block-place-sneaking-chance: 30
 auto-ignite-tnt-chance: 50
-rocket-explosion-chance: 5
+rocket-explosion-chance: 15
 faster-mob-chance: 25
