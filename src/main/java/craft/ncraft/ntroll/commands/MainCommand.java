@@ -143,6 +143,9 @@ public class MainCommand implements CommandExecutor {
                 cs.sendMessage(ChatColor.GOLD + "Subcommands: on, off, status, add [player], remove [player], list");
                 return true;
             }
+
+            cs.sendMessage(ChatColor.RED + "Invalid subcommand");
+            return false;
         }
 
         return false;
