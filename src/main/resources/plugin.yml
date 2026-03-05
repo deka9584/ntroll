@@ -4,12 +4,18 @@ author: NCraft
 main: craft.ncraft.ntroll.NTroll
 commands:
    ntroll:
-    description: main command
+    description: Main command
     permission: ntroll.command
+   spawnmobbehind:
+    description: Spawn a mob behind a player
+    permission: ntroll.spawnmobbehind
 permissions:
   ntroll.command:
     description: Allows main command
     default: op
   ntroll.command.admin:
     description: Allows troll on/off/status
+    default: op
+  ntroll.spawnmobbehind:
+    descriptin: Allows spawning a mob behind a player
     default: op
