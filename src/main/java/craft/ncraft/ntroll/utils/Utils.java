@@ -104,7 +104,8 @@ public class Utils {
         Location head = behind.clone().add(0, 1, 0);
         Location ground = behind.clone().subtract(0, 1, 0);
 
-        if (!feet.getBlock().getType().isSolid() && !head.getBlock().getType().isSolid() && ground.getBlock().getType().isSolid()) {
+        if (feet.getBlock().isPassable() && head.getBlock().isPassable() && ground.getBlock().getType().isSolid()) {
+            behind.add(0.5, 0, 0.5);
             plugin.debugLog("Spawning entity behind player, Entity: " + entityType.name());
             return player.getWorld().spawnEntity(behind, entityType);
         }
