@@ -106,7 +106,7 @@ public class UnluckyBlocksManager {
         Entity entity;
 
         if (block != null) {
-            entity = block.getWorld().spawnEntity(block.getLocation(), EntityType.SILVERFISH);
+            entity = block.getWorld().spawnEntity(block.getLocation().add(0.5, 0, 0.5), EntityType.SILVERFISH);
         } else {
             entity = utils.spawnEntityBehindPlayer(EntityType.SILVERFISH, player, false);
         }
