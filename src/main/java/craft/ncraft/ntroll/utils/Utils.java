@@ -22,7 +22,7 @@ public class Utils {
     }
 
     public boolean addMobInvisibility(Mob mob, int duration) {
-        return mob.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 200, 1, false, false ));
+        return mob.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, duration, 1, false, false));
     }
 
     public boolean chancePercent(int percent) {
