@@ -139,9 +139,20 @@ public class MainCommand implements CommandExecutor {
                 return true;
             }
 
+            if (args[0].equalsIgnoreCase("break-actions")) {
+                if (!cs.hasPermission(permission + ".admin")) {
+                    cs.sendMessage(noperm);
+                    return false;
+                }
+
+                String breakActions = String.join("\n", plugin.getUnluckyBlocksManager().getActionsList());
+                cs.sendMessage(utils.getMsgFromCfg("break-action-list").replaceAll("%list%", breakActions));
+                return true;
+            }
+
             if (args[0].equalsIgnoreCase("help")) {
                 cs.sendMessage(utils.getMsgFromCfg("backup-reminder"));
-                cs.sendMessage(ChatColor.GOLD + "Subcommands: on, off, status, add [player], remove [player], list");
+                cs.sendMessage(ChatColor.GOLD + "Subcommands: on, off, status, add [player], remove [player], list, break-actions");
                 return true;
             }
 
