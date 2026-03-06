@@ -42,7 +42,7 @@ public class UnluckyBlocksManager {
 
     public String getRandomAction() {
         int totalWeight = actions.stream().mapToInt(UnluckyAction::getChance).sum();
-        int randomNumber = utils.getRandomInt(0, totalWeight);
+        int randomNumber = utils.getRandomInt(0, totalWeight - 1);
         int currWeight = 0;
 
         for (UnluckyAction ua : actions) {
@@ -54,6 +54,16 @@ public class UnluckyBlocksManager {
         }
 
         return null;
+    }
+
+    public List<String> getActionsList() {
+        List<String> mappedActions = new ArrayList<>();
+
+        for (UnluckyAction ua : actions) {
+            mappedActions.add(ua.getName() + ":" + ua.getChance());
+        }
+
+        return mappedActions;
     }
 
     public void spawnCreeper (Player player, boolean charged, boolean invisible) {

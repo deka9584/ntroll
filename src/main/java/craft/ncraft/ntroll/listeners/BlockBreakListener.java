@@ -33,6 +33,12 @@ public class BlockBreakListener implements Listener {
             UnluckyBlocksManager ubm = plugin.getUnluckyBlocksManager();
             Block block = event.getBlock();
             String action = ubm.getRandomAction();
+
+            if (action == null) {
+                plugin.debugLog("Unable to get action for unlucky block break");
+                return;
+            }
+
             plugin.debugLog("Unlucky action " + action + " for player " + player.getName());
 
             switch (action) {
