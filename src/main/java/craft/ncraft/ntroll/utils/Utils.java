@@ -4,10 +4,12 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -50,7 +52,7 @@ public class Utils {
     }
 
     public Creeper spawnCreeperToPlayer(Player player, boolean charged, boolean invisible) {
-        Entity entity = spawnMobBehindPlayer(EntityType.CREEPER, player, false);
+        Entity entity = spawnEntityBehindPlayer(EntityType.CREEPER, player, false);
 
         if (entity instanceof Creeper) {
             Creeper creeper = (Creeper) entity;
@@ -74,7 +76,7 @@ public class Utils {
     }
 
     public Enderman spawnEndermanToPlayer(Player player, boolean invisible) {
-        Entity entity = spawnMobBehindPlayer(EntityType.ENDERMAN, player, false);
+        Entity entity = spawnEntityBehindPlayer(EntityType.ENDERMAN, player, false);
 
         if (entity instanceof Enderman) {
             Enderman enderman = (Enderman) entity;
@@ -91,8 +93,26 @@ public class Utils {
 
         return null;
     }
+    
+    public Entity spawnEntityToBlock(EntityType entityType, Block block, Player target, boolean invisible) {
+        Entity entity = block.getWorld().spawnEntity(block.getLocation(), entityType);
 
-    public Entity spawnMobBehindPlayer(EntityType entityType, Player player, boolean force) {
+        if (entity instanceof Mob) {
+            Mob mob = (Mob) entity;
+
+            if (invisible) {
+                mob.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 200, 1, false, false ));
+            }
+
+            if (target != null && target.getGameMode() == GameMode.SURVIVAL) {
+                mob.setTarget(target);
+            }
+        }
+
+        return entity;
+    }
+
+    public Entity spawnEntityBehindPlayer(EntityType entityType, Player player, boolean force) {
         Location playerLoc = player.getLocation();
         Vector direction = playerLoc.getDirection();
 

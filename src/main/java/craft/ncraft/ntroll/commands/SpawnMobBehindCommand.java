@@ -43,7 +43,7 @@ public class SpawnMobBehindCommand implements CommandExecutor {
                     return false;
                 }
 
-                if (utils.spawnMobBehindPlayer(entityType, target, false) != null) {
+                if (utils.spawnEntityBehindPlayer(entityType, target, false) != null) {
                     cs.sendMessage(ChatColor.GREEN + "Spawned entity " + entityType.name() + " to player " + target.getName());
                     return true;
                 }

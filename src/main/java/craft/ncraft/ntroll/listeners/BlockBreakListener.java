@@ -2,6 +2,8 @@ package craft.ncraft.ntroll.listeners;
 
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,6 +30,7 @@ public class BlockBreakListener implements Listener {
         }
 
         if (utils.chancePercent(plugin.getConfig().getInt("unluckyblock-break-chance"))) {
+            Block block = event.getBlock();
             String action = plugin.getUnluckyBlocksManager().getRandomAction();
             plugin.debugLog("Unlucky action " + action + " for player " + player.getName());
 
@@ -47,16 +50,22 @@ public class BlockBreakListener implements Listener {
                 case "spawn-invisible-enderman":
                     utils.spawnEndermanToPlayer(player, true);
                     break;
+                case "spawn-silverfish":
+                    utils.spawnEntityToBlock(EntityType.SILVERFISH, block, player, false);
+                    break;
+                case "spawn-invisible-silverfish":
+                    utils.spawnEntityToBlock(EntityType.SILVERFISH, block, player, true);
+                    break;
                 case "disable-drops":
                     event.setDropItems(false);
                     break;
                 case "place-bedrock":
                     event.setCancelled(true);
-                    event.getBlock().setType(Material.BEDROCK);
+                    block.setType(Material.BEDROCK);
                     break;
                 case "place-obsidian":
                     event.setCancelled(true);
-                    event.getBlock().setType(Material.OBSIDIAN);
+                    block.setType(Material.OBSIDIAN);
                     break;
                 case "destroy-item":
                     player.getInventory().setItemInMainHand(null);
