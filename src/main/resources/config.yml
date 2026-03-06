@@ -7,6 +7,7 @@ troll-status-msg: "%prefix% &6Il troll plugin è %status%!"
 added-player-msg: "%prefix% &6Player %player% è stato aggiunto!"
 removed-player-msg: "%prefix% &6Player %player% è stato rimosso!"
 target-player-list: "%prefix% &6Giocatori aggiunti: %list%"
+break-action-list: "%prefix% &6Azioni rottura blocchi: \n%list%"
 backup-reminder: "%prefix% &6IMPORTANTE: Fare sempre il backup del server prima di attivare"
 # ENABLE THE ENTIRE PLUGIN
 # Backup the server before!
