@@ -34,8 +34,8 @@ public class EntityTargetListener implements Listener {
                 return;
             }
 
-            if (utils.chancePercent(plugin.getConfig().getInt("faster-mob-chance"))) {
-                mob.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 1, false, false));
+            if (!mob.hasPotionEffect(PotionEffectType.SPEED) && utils.chancePercent(plugin.getConfig().getInt("faster-mob-chance"))) {
+                mob.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 2, false, false));
                 plugin.debugLog("Added speed boost to mob " + mob.getType().name() + " for player " + targetPlayer.getName());
             }
         }
