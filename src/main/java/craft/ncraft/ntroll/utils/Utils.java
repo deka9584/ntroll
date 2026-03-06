@@ -1,5 +1,6 @@
 package craft.ncraft.ntroll.utils;
 
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.Location;
@@ -8,6 +9,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.MetadataValue;
+import org.bukkit.metadata.Metadatable;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
@@ -28,6 +31,20 @@ public class Utils {
 
     public boolean chancePercent(int percent) {
         return getRandomInt(1, 100) <= percent;
+    }
+
+    public MetadataValue extractMetadataValue(Metadatable metadatable, String key) {
+        if (metadatable.hasMetadata(key)) {
+            List<MetadataValue> meta = metadatable.getMetadata(key);
+
+            for (MetadataValue value : meta) {
+                if (value.getOwningPlugin() == plugin) {
+                    return value;
+                }
+            }
+        }
+
+        return null;
     }
 
     public String getMsgFromCfg(String path) {
