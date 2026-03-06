@@ -1,10 +1,18 @@
 package craft.ncraft.ntroll.commands;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Creeper;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 
 import craft.ncraft.ntroll.NTroll;
@@ -28,7 +36,8 @@ public class SpawnMobBehindCommand implements CommandExecutor {
                 return false;
             }
 
-            if (args.length == 2) {
+            if (args.length > 1) {
+                Set<String> params = Stream.of(args).filter(str -> str.startsWith("--")).collect(Collectors.toSet());
                 EntityType entityType = utils.getEntityTypeByName(args[0]);
 
                 if (entityType == null || !entityType.isSpawnable()) {
@@ -43,16 +52,35 @@ public class SpawnMobBehindCommand implements CommandExecutor {
                     return false;
                 }
 
-                if (utils.spawnEntityBehindPlayer(entityType, target, false) != null) {
-                    cs.sendMessage(ChatColor.GREEN + "Spawned entity " + entityType.name() + " to player " + target.getName());
-                    return true;
+                boolean forceSafeLocation = params.contains("--force");
+                Entity entity = utils.spawnEntityBehindPlayer(entityType, target, forceSafeLocation);
+
+                if (entity == null) {
+                    cs.sendMessage(ChatColor.RED + "Unable to spawn entity in safe location");
+                    return false;
+                }
+                
+                if (entity instanceof Mob) {
+                    Mob mob = (Mob) entity;
+
+                    if (params.contains("--invisible")) {
+                        utils.addMobInvisibility(mob, 200);
+                    }
+
+                    if (params.contains("--powered") && mob.getType() == EntityType.CREEPER) {
+                        ((Creeper) mob).setPowered(true);
+                    }
+
+                    if (params.contains("--autotarget") && target.getGameMode() == GameMode.SURVIVAL) {
+                        mob.setTarget(target);
+                    }
                 }
 
-                cs.sendMessage(ChatColor.RED + "Unable to spawn entity in safe location");
-                return false;
+                cs.sendMessage(ChatColor.GREEN + "Spawned entity " + entityType.name() + " to player " + target.getName());
+                return true;
             }
 
-            cs.sendMessage(ChatColor.RED + "Arguments: [entity] [player]");
+            cs.sendMessage(ChatColor.RED + "Arguments: [entity] [player], Optional params: --force, --invisible, --powered, --autotarget");
             return false;
         }
 
