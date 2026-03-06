@@ -3,6 +3,7 @@ package craft.ncraft.ntroll.utils;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Mob;
@@ -51,6 +52,10 @@ public class Utils {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
+    public Entity spawnnEntityOnBlock(EntityType entityType, Block block) {
+        return block.getWorld().spawnEntity(block.getLocation().add(0.5, 0, 0.5), entityType);
+    }
+
     public Entity spawnEntityBehindPlayer(EntityType entityType, Player player, boolean force) {
         Location playerLoc = player.getLocation();
         Vector direction = playerLoc.getDirection();
@@ -64,9 +69,8 @@ public class Utils {
         Location ground = behind.clone().subtract(0, 1, 0);
 
         if (feet.getBlock().isPassable() && head.getBlock().isPassable() && ground.getBlock().getType().isSolid()) {
-            behind.add(0.5, 0, 0.5);
             plugin.debugLog("Spawning entity behind player, Entity: " + entityType.name());
-            return player.getWorld().spawnEntity(behind, entityType);
+            return player.getWorld().spawnEntity(behind.add(0.5, 0, 0.5), entityType);
         }
         
         if (force) {
