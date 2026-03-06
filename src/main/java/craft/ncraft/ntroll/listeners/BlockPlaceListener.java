@@ -1,6 +1,7 @@
 package craft.ncraft.ntroll.listeners;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,6 +23,7 @@ public class BlockPlaceListener implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
+        Block block = event.getBlock();
 
         if (player == null || !plugin.isTrollEnabled() || !plugin.getTargetPlayerManager().isTargetPlayer(player.getName())) {
             return;
@@ -39,8 +41,8 @@ public class BlockPlaceListener implements Listener {
             }
         }
 
-        if (event.getBlock().getType() == Material.TNT && utils.chancePercent(plugin.getConfig().getInt("auto-ignite-tnt-chance"))) {
-            event.getBlock().getWorld().spawnEntity(event.getBlock().getLocation(), EntityType.PRIMED_TNT);
+        if (block.getType() == Material.TNT && utils.chancePercent(plugin.getConfig().getInt("auto-ignite-tnt-chance"))) {
+            block.getWorld().spawnEntity(block.getLocation().add(0.5, 0, 0.5), EntityType.PRIMED_TNT);
             event.setCancelled(true);
             plugin.debugLog("Auto ignite TNT to player " + player.getName());
         }
