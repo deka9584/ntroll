@@ -2,11 +2,7 @@ package craft.ncraft.ntroll.utils;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Creeper;
-import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Mob;
@@ -23,6 +19,10 @@ public class Utils {
 
     public Utils(NTroll plugin) {
         this.plugin = plugin;
+    }
+
+    public boolean addMobInvisibility(Mob mob, int duration) {
+        return mob.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 200, 1, false, false ));
     }
 
     public boolean chancePercent(int percent) {
@@ -49,67 +49,6 @@ public class Utils {
 
     public int getRandomInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
-    }
-
-    public Creeper spawnCreeperToPlayer(Player player, boolean charged, boolean invisible) {
-        Entity entity = spawnEntityBehindPlayer(EntityType.CREEPER, player, false);
-
-        if (entity instanceof Creeper) {
-            Creeper creeper = (Creeper) entity;
-
-            if (charged) {
-                creeper.setPowered(true);
-            }
-
-            if (invisible) {
-                creeper.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 200, 1, false, false));
-            }
-            
-            if (player.getGameMode() == GameMode.SURVIVAL) {
-                creeper.setTarget(player);
-            }
-
-            return creeper;
-        }
-
-        return null;
-    }
-
-    public Enderman spawnEndermanToPlayer(Player player, boolean invisible) {
-        Entity entity = spawnEntityBehindPlayer(EntityType.ENDERMAN, player, false);
-
-        if (entity instanceof Enderman) {
-            Enderman enderman = (Enderman) entity;
-
-            if (invisible) {
-                enderman.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 200, 1, false, false ));
-            }
-
-            if (player.getGameMode() == GameMode.SURVIVAL) {
-                enderman.setTarget(player);
-            }
-            return enderman;
-        }
-
-        return null;
-    }
-    
-    public Entity spawnEntityToBlock(EntityType entityType, Block block, Player target, boolean invisible) {
-        Entity entity = block.getWorld().spawnEntity(block.getLocation(), entityType);
-
-        if (entity instanceof Mob) {
-            Mob mob = (Mob) entity;
-
-            if (invisible) {
-                mob.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 200, 1, false, false ));
-            }
-
-            if (target != null && target.getGameMode() == GameMode.SURVIVAL) {
-                mob.setTarget(target);
-            }
-        }
-
-        return entity;
     }
 
     public Entity spawnEntityBehindPlayer(EntityType entityType, Player player, boolean force) {

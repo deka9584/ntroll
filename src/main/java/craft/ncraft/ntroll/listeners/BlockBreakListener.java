@@ -3,13 +3,13 @@ package craft.ncraft.ntroll.listeners;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 import craft.ncraft.ntroll.NTroll;
+import craft.ncraft.ntroll.managers.UnluckyBlocksManager;
 import craft.ncraft.ntroll.utils.Utils;
 
 public class BlockBreakListener implements Listener {
@@ -30,31 +30,32 @@ public class BlockBreakListener implements Listener {
         }
 
         if (utils.chancePercent(plugin.getConfig().getInt("unluckyblock-break-chance"))) {
+            UnluckyBlocksManager ubm = plugin.getUnluckyBlocksManager();
             Block block = event.getBlock();
-            String action = plugin.getUnluckyBlocksManager().getRandomAction();
+            String action = ubm.getRandomAction();
             plugin.debugLog("Unlucky action " + action + " for player " + player.getName());
 
             switch (action) {
                 case "spawn-creeper":
-                    utils.spawnCreeperToPlayer(player, false, false);
+                    ubm.spawnCreeper(player, false, false);
                     break;
                 case "spawn-invisible-creeper":
-                    utils.spawnCreeperToPlayer(player, false, true);
+                    ubm.spawnCreeper(player, false, true);
                     break;
                 case "spawn-invisible-charged-creeper":
-                    utils.spawnCreeperToPlayer(player, true, true);
+                    ubm.spawnCreeper(player, true, true);
                     break;
                 case "spawn-enderman":
-                    utils.spawnEndermanToPlayer(player, false);
+                    ubm.spawnEnderman(player, false);
                     break;
                 case "spawn-invisible-enderman":
-                    utils.spawnEndermanToPlayer(player, true);
+                    ubm.spawnEnderman(player, true);
                     break;
                 case "spawn-silverfish":
-                    utils.spawnEntityToBlock(EntityType.SILVERFISH, block, player, false);
+                    ubm.spawnSilverfish(player, block, false);
                     break;
                 case "spawn-invisible-silverfish":
-                    utils.spawnEntityToBlock(EntityType.SILVERFISH, block, player, true);
+                    ubm.spawnSilverfish(player, block, true);
                     break;
                 case "disable-drops":
                     event.setDropItems(false);
