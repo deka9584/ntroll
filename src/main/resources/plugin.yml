@@ -2,6 +2,7 @@ name: NTroll
 version: "1.0"
 author: NCraft
 main: craft.ncraft.ntroll.NTroll
+api-version: '1.15.2'
 commands:
    ntroll:
     description: Main command
