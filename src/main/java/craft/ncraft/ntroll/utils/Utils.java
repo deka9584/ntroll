@@ -69,7 +69,7 @@ public class Utils {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
-    public Entity spawnnEntityOnBlock(EntityType entityType, Block block) {
+    public Entity spawnEntityOnBlock(EntityType entityType, Block block) {
         return block.getWorld().spawnEntity(block.getLocation().add(0.5, 0, 0.5), entityType);
     }
 

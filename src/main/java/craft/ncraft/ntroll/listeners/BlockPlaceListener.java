@@ -42,7 +42,7 @@ public class BlockPlaceListener implements Listener {
         }
 
         if (block.getType() == Material.TNT && utils.chancePercent(plugin.getConfig().getInt("auto-ignite-tnt-chance"))) {
-            utils.spawnnEntityOnBlock(EntityType.PRIMED_TNT, block);
+            utils.spawnEntityOnBlock(EntityType.PRIMED_TNT, block);
             event.setCancelled(true);
             plugin.debugLog("Auto ignite TNT to player " + player.getName());
         }
