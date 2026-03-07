@@ -20,7 +20,7 @@ public class BlockPlaceListener implements Listener {
         this.utils = plugin.getUtils();
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         Block block = event.getBlock();

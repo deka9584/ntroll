@@ -21,7 +21,7 @@ public class EntityTargetListener implements Listener {
         this.utils = plugin.getUtils();
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onEntityTarget(EntityTargetEvent event) {
         Entity entity = event.getEntity();
         Entity target = event.getTarget();

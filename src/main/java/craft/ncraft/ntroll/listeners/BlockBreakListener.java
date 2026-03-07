@@ -22,7 +22,7 @@ public class BlockBreakListener implements Listener {
         this.utils = plugin.getUtils();
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
 

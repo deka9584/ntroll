@@ -22,7 +22,7 @@ public class PlayerInteractListener implements Listener {
         this.utils = plugin.getUtils();
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         Action action = event.getAction();
