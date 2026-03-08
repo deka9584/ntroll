@@ -16,12 +16,13 @@ debug: false
 target-players: []
 unluckyblock-break-chance: 25
 unluckyblock-break-actions:
-  spawn-creeper: 10
+  spawn-creeper: 5
   spawn-invisible-creeper: 5
   spawn-invisible-charged-creeper: 5
   spawn-enderman: 5
   spawn-invisible-enderman: 5
   spawn-silverfish: 5
+  spawn-baby-sombie: 5
   spawn-invisible-silverfish: 5
   disable-drops: 25
   place-bedrock: 5
