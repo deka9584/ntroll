@@ -15,6 +15,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Shulker;
+import org.bukkit.entity.ShulkerBullet;
 import org.bukkit.entity.Zombie;
 
 import craft.ncraft.ntroll.NTroll;
@@ -146,13 +148,29 @@ public class UnluckyBlocksManager {
     }
 
     public void spawnPigZombie(Player player, boolean baby, boolean invisible) {
-        Entity entity = utils.spawnEntityBehindPlayer(EntityType.PIG_ZOMBIE, player, invisible);
+        Entity entity = utils.spawnEntityBehindPlayer(EntityType.PIG_ZOMBIE, player, false);
 
         if (entity instanceof PigZombie) {
             PigZombie pigZombie = (PigZombie) entity;
             pigZombie.setAngry(true);
             pigZombie.setBaby(baby);
             updateMobTarget(pigZombie, player, invisible);
+        }
+    }
+
+    public void spawnShulker(Player player, boolean invisible) {
+        Entity entity = utils.spawnEntityBehindPlayer(EntityType.SHULKER, player, false);
+
+        if (entity instanceof Shulker) {
+            updateMobTarget((Shulker) entity, player, invisible);
+        }
+    }
+
+    public void spawnShulkerBullet(Player player) {
+        Entity entity = utils.spawnEntityBehindPlayer(EntityType.SHULKER_BULLET, player, false);
+
+        if (entity instanceof ShulkerBullet) {
+            ((ShulkerBullet)entity).setTarget(player);
         }
     }
 

@@ -43,8 +43,10 @@ unluckyblock-break-actions:
     destroy-item: 10
     cancel-break: 20
   end:
-    spawn-enderman: 30
-    spawn-invisible-enderman: 20
+    spawn-enderman: 20
+    spawn-invisible-enderman: 10
+    spawn-shulker: 10
+    spawn-shulker-bullet: 10
     disable-drops: 20
     destroy-item: 10
     cancel-break: 20

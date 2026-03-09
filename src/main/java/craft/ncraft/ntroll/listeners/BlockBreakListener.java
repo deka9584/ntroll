@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.metadata.FixedMetadataValue;
 
 import craft.ncraft.ntroll.NTroll;
 import craft.ncraft.ntroll.managers.UnluckyBlocksManager;
@@ -73,13 +72,19 @@ public class BlockBreakListener implements Listener {
                 case "spawn-baby-pig-zombie":
                     ubm.spawnPigZombie(player, true, false);
                     break;
+                case "spawn-shulker":
+                    ubm.spawnShulker(player, false);
+                    break;
+                case "spawn-shulker-bullet":
+                    ubm.spawnShulkerBullet(player);
+                    break;
                 case "disable-drops":
                     event.setDropItems(false);
                     break;
                 case "place-bedrock":
                     event.setCancelled(true);
                     block.setType(Material.BEDROCK);
-                    block.setMetadata("ntroll-instant-break", new FixedMetadataValue(plugin, true));
+                    utils.setMetadataValue(block, "ntroll-instant-break", true);
                     break;
                 case "place-obsidian":
                     event.setCancelled(true);
