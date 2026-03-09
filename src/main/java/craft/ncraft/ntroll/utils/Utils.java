@@ -9,6 +9,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.metadata.Metadatable;
 import org.bukkit.potion.PotionEffect;
@@ -104,5 +105,9 @@ public class Utils {
 
         plugin.debugLog("Prevented spawning entity in unsafe location, Entity: " + entityType.name());
         return null;
+    }
+
+    public void setMetadataValue(Metadatable metadatable, String key, Object value) {
+        metadatable.setMetadata(key, new FixedMetadataValue(plugin, value));
     }
 }
