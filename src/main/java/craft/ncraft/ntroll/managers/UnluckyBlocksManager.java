@@ -27,7 +27,7 @@ public class UnluckyBlocksManager {
     private final NTroll plugin;
     private final Utils utils;
 
-    private Map<Environment, List<UnluckyAction>> worldActions = new HashMap<>();
+    private Map<String, List<UnluckyAction>> worldActions = new HashMap<>();
 
     public UnluckyBlocksManager(NTroll plugin) {
         this.plugin = plugin;
@@ -44,33 +44,40 @@ public class UnluckyBlocksManager {
 
             if (section == null) continue;
 
-            List<UnluckyAction> actions;
+            List<UnluckyAction> actions = new ArrayList<UnluckyAction>();
 
-            switch (worldEnv.toLowerCase()) {
+            for (String key : section.getKeys(false)) {
+                actions.add(new UnluckyAction(key, section.getInt(key)));
+            }
+
+            switch (worldEnv) {
                 case "overworld":
-                    actions = worldActions.get(Environment.NORMAL);
+                    worldActions.put(Environment.NORMAL.name(), actions);
                     break;
                 case "nether":
-                    actions = worldActions.get(Environment.NETHER);
+                    worldActions.put(Environment.NETHER.name(), actions);
                     break;
                 case "end":
-                    actions = worldActions.get(Environment.THE_END);
+                    worldActions.put(Environment.THE_END.name(), actions);
                     break;
                 default:
                     plugin.debugLog("Invalid world env " + worldEnv + " in unluckyblock-break-actions");
                     continue;
             }
-
-            actions.clear();
-
-            for (String key : section.getKeys(false)) {
-                actions.add(new UnluckyAction(key, section.getInt(key)));
-            }
         }
 }
 
-    public String getRandomAction(Environment worldEnv) {
+    public String getRandomAction(String worldEnv) {
         List<UnluckyAction> actions = worldActions.get(worldEnv);
+
+        if (actions == null) {
+            if (!worldActions.containsKey("overworld")) {
+                return null;
+            }
+
+            actions = worldActions.get("overworld");
+            plugin.debugLog("Key not found: " + worldEnv);
+        }
 
         int totalWeight = actions.stream().mapToInt(UnluckyAction::getChance).sum();
         int randomNumber = utils.getRandomInt(0, totalWeight - 1);
@@ -91,11 +98,11 @@ public class UnluckyBlocksManager {
         List<String> mappedActions = new ArrayList<>();
 
         worldActions.forEach((key, list) -> {
-            mappedActions.add(key.name());
+            mappedActions.add(key);
 
             for (UnluckyAction ua : list) {
-            mappedActions.add(ua.getName() + ":" + ua.getChance());
-        }
+                mappedActions.add(ua.getName() + ":" + ua.getChance());
+            }
         });
 
         return mappedActions;
