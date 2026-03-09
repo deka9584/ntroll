@@ -5,6 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Mob;
@@ -75,6 +76,30 @@ public class Utils {
 
     public int getRandomInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
+    }
+
+    public Arrow spawnArrowToPlayer(Player player) {
+        Location playerLoc = player.getEyeLocation();
+        Vector playerDir = playerLoc.getDirection().setY(0).normalize();
+
+        Location behind = playerLoc.clone()
+            .subtract(playerDir.multiply(2))
+            .add(0, 0.2, 0);
+
+        if (!behind.getBlock().isPassable()) {
+            plugin.debugLog("No safe location to spawn arrow to player " + player.getName());
+            return null;
+        }
+
+        Vector arrowDir = player.getEyeLocation().toVector()
+            .subtract(behind.toVector())
+            .normalize();
+
+        Arrow arrow = player.getWorld().spawnArrow(behind, arrowDir, 2.0F, 0F);
+
+        arrow.setGravity(false);
+
+        return arrow;
     }
 
     public Entity spawnEntityOnBlock(EntityType entityType, Block block) {

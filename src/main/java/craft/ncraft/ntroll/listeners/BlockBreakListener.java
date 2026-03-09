@@ -78,6 +78,9 @@ public class BlockBreakListener implements Listener {
                 case "spawn-shulker-bullet":
                     ubm.spawnShulkerBullet(player);
                     break;
+                case "spawn-arrow":
+                    utils.spawnArrowToPlayer(player);
+                    break;
                 case "disable-drops":
                     event.setDropItems(false);
                     break;
