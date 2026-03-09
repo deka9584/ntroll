@@ -1,8 +1,8 @@
 package craft.ncraft.ntroll.utils;
 
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -29,15 +29,22 @@ public class Utils {
         return mob.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, duration, 1, false, false));
     }
 
+    public boolean isPlayerVulnerable(Player player) {
+        if (player.isInvulnerable()) {
+            return false;
+        }
+
+        GameMode gm = player.getGameMode();
+        return gm == GameMode.ADVENTURE || gm == GameMode.SURVIVAL;
+    }
+
     public boolean chancePercent(int percent) {
         return getRandomInt(1, 100) <= percent;
     }
 
     public MetadataValue extractMetadataValue(Metadatable metadatable, String key) {
         if (metadatable.hasMetadata(key)) {
-            List<MetadataValue> meta = metadatable.getMetadata(key);
-
-            for (MetadataValue value : meta) {
+            for (MetadataValue value : metadatable.getMetadata(key)) {
                 if (value.getOwningPlugin() == plugin) {
                     return value;
                 }

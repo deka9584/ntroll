@@ -64,6 +64,9 @@ public class BlockBreakListener implements Listener {
                 case "spawn-invisible-silverfish":
                     ubm.spawnSilverfish(player, block, true);
                     break;
+                case "spawn-baby-sombie":
+                    ubm.spawnZombie(player, true, false);
+                    break;
                 case "disable-drops":
                     event.setDropItems(false);
                     break;

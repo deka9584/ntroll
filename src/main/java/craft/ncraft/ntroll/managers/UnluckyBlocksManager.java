@@ -3,7 +3,6 @@ package craft.ncraft.ntroll.managers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.GameMode;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Creeper;
@@ -12,6 +11,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Zombie;
 
 import craft.ncraft.ntroll.NTroll;
 import craft.ncraft.ntroll.model.UnluckyAction;
@@ -76,13 +76,7 @@ public class UnluckyBlocksManager {
                 creeper.setPowered(true);
             }
 
-            if (invisible) {
-                utils.addMobInvisibility(creeper, 200);
-            }
-            
-            if (player.getGameMode() == GameMode.SURVIVAL) {
-                creeper.setTarget(player);
-            }
+            updateMobTarget(creeper, player, invisible);
         }
     }
 
@@ -90,15 +84,7 @@ public class UnluckyBlocksManager {
         Entity entity = utils.spawnEntityBehindPlayer(EntityType.ENDERMAN, player, false);
 
         if (entity instanceof Enderman) {
-            Enderman enderman = (Enderman) entity;
-
-            if (invisible) {
-                utils.addMobInvisibility(enderman, 200);
-            }
-
-            if (player.getGameMode() == GameMode.SURVIVAL) {
-                enderman.setTarget(player);
-            }
+            updateMobTarget((Enderman) entity, player, invisible);
         }
     }
 
@@ -112,15 +98,27 @@ public class UnluckyBlocksManager {
         }
 
         if (entity instanceof Mob) {
-            Mob mob = (Mob) entity;
+            updateMobTarget((Mob) entity, player, invisible);
+        }
+    }
 
-            if (invisible) {
-                utils.addMobInvisibility(mob, 200);
-            }
+    public void spawnZombie(Player player, boolean baby, boolean invisible) {
+        Entity entity = utils.spawnEntityBehindPlayer(EntityType.ZOMBIE, player, false);
 
-            if (player.getGameMode() == GameMode.SURVIVAL) {
-                mob.setTarget(player);
-            }
+        if (entity instanceof Zombie) {
+            Zombie zombie = (Zombie) entity;
+            zombie.setBaby(baby);
+            updateMobTarget(zombie, player, invisible);
+        }
+    }
+
+    private void updateMobTarget(Mob mob, Player target, boolean invisible) {
+        if (target != null && utils.isPlayerVulnerable(target)) {
+            mob.setTarget(target);
+        }
+
+        if (invisible) {
+            utils.addMobInvisibility(mob, 200);
         }
     }
 }
