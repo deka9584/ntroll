@@ -33,7 +33,7 @@ public class BlockBreakListener implements Listener {
         if (utils.chancePercent(plugin.getConfig().getInt("unluckyblock-break-chance"))) {
             UnluckyBlocksManager ubm = plugin.getUnluckyBlocksManager();
             Block block = event.getBlock();
-            String action = ubm.getRandomAction();
+            String action = ubm.getRandomAction(player.getWorld().getEnvironment());
 
             if (action == null) {
                 plugin.debugLog("Unable to get action for unlucky block break");
@@ -64,8 +64,14 @@ public class BlockBreakListener implements Listener {
                 case "spawn-invisible-silverfish":
                     ubm.spawnSilverfish(player, block, true);
                     break;
-                case "spawn-baby-sombie":
+                case "spawn-baby-zombie":
                     ubm.spawnZombie(player, true, false);
+                    break;
+                case "spawn-pig-zombie":
+                    ubm.spawnPigZombie(player, false, false);
+                    break;
+                case "spawn-baby-pig-zombie":
+                    ubm.spawnPigZombie(player, true, false);
                     break;
                 case "disable-drops":
                     event.setDropItems(false);

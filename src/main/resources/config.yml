@@ -14,22 +14,40 @@ backup-reminder: "%prefix% &6IMPORTANTE: Fare sempre il backup del server prima 
 enable-troll: false
 debug: false
 target-players: []
+# Chance that an unlucky action happens on block break
+# Valid actions:
+
 unluckyblock-break-chance: 25
 unluckyblock-break-actions:
-  spawn-creeper: 5
-  spawn-invisible-creeper: 5
-  spawn-invisible-charged-creeper: 5
-  spawn-enderman: 5
-  spawn-invisible-enderman: 5
-  spawn-silverfish: 5
-  spawn-baby-sombie: 5
-  spawn-invisible-silverfish: 5
-  disable-drops: 25
-  place-bedrock: 5
-  place-obsidian: 5
-  destroy-item: 10
-  explosion: 5
-  cancel-break: 10
+  overworld:
+    spawn-creeper: 5
+    spawn-invisible-creeper: 5
+    spawn-invisible-charged-creeper: 5
+    spawn-enderman: 5
+    spawn-invisible-enderman: 5
+    spawn-silverfish: 5
+    spawn-baby-zombie: 5
+    spawn-invisible-silverfish: 5
+    disable-drops: 25
+    place-bedrock: 5
+    place-obsidian: 5
+    destroy-item: 10
+    explosion: 5
+    cancel-break: 10
+  nether:
+    spawn-enderman: 10
+    spawn-pig-zombie: 10
+    spawn-baby-pig-zombie: 10
+    disable-drops: 30
+    place-obsidian: 10
+    destroy-item: 10
+    cancel-break: 20
+  end:
+    spawn-enderman: 30
+    spawn-invisible-enderman: 20
+    disable-drops: 20
+    destroy-item: 10
+    cancel-break: 20
 cancel-block-place-chance: 15
 cancel-block-place-sneaking-chance: 30
 auto-ignite-tnt-chance: 50

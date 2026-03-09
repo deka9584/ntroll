@@ -1,8 +1,11 @@
 package craft.ncraft.ntroll.managers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Creeper;
@@ -10,6 +13,7 @@ import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Mob;
+import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
 
@@ -20,7 +24,8 @@ import craft.ncraft.ntroll.utils.Utils;
 public class UnluckyBlocksManager {
     private final NTroll plugin;
     private final Utils utils;
-    private List<UnluckyAction> actions = new ArrayList<>();
+
+    private Map<Environment, List<UnluckyAction>> worldActions = new HashMap<>();
 
     public UnluckyBlocksManager(NTroll plugin) {
         this.plugin = plugin;
@@ -28,19 +33,43 @@ public class UnluckyBlocksManager {
     }
 
     public void loadActions() {
-        ConfigurationSection section = plugin.getConfig().getConfigurationSection("unluckyblock-break-actions");
+        ConfigurationSection root = plugin.getConfig().getConfigurationSection("unluckyblock-break-actions");
 
-        if (section != null) {
+        if (root == null) return;
+
+        for (String worldEnv : root.getKeys(false)) {
+            ConfigurationSection section = root.getConfigurationSection(worldEnv);
+
+            if (section == null) continue;
+
+            List<UnluckyAction> actions;
+
+            switch (worldEnv.toLowerCase()) {
+                case "overworld":
+                    actions = worldActions.get(Environment.NORMAL);
+                    break;
+                case "nether":
+                    actions = worldActions.get(Environment.NETHER);
+                    break;
+                case "end":
+                    actions = worldActions.get(Environment.THE_END);
+                    break;
+                default:
+                    plugin.debugLog("Invalid world env " + worldEnv + " in unluckyblock-break-actions");
+                    continue;
+            }
+
             actions.clear();
 
             for (String key : section.getKeys(false)) {
-                int chance = plugin.getConfig().getInt("unluckyblock-break-actions." + key);
-                actions.add(new UnluckyAction(key, chance));
+                actions.add(new UnluckyAction(key, section.getInt(key)));
             }
         }
-    }
+}
 
-    public String getRandomAction() {
+    public String getRandomAction(Environment worldEnv) {
+        List<UnluckyAction> actions = worldActions.get(worldEnv);
+
         int totalWeight = actions.stream().mapToInt(UnluckyAction::getChance).sum();
         int randomNumber = utils.getRandomInt(0, totalWeight - 1);
         int currWeight = 0;
@@ -59,14 +88,18 @@ public class UnluckyBlocksManager {
     public List<String> getActionsList() {
         List<String> mappedActions = new ArrayList<>();
 
-        for (UnluckyAction ua : actions) {
+        worldActions.forEach((key, list) -> {
+            mappedActions.add(key.name());
+
+            for (UnluckyAction ua : list) {
             mappedActions.add(ua.getName() + ":" + ua.getChance());
         }
+        });
 
         return mappedActions;
     }
 
-    public void spawnCreeper (Player player, boolean charged, boolean invisible) {
+    public void spawnCreeper(Player player, boolean charged, boolean invisible) {
         Entity entity = utils.spawnEntityBehindPlayer(EntityType.CREEPER, player, false);
 
         if (entity instanceof Creeper) {
@@ -109,6 +142,17 @@ public class UnluckyBlocksManager {
             Zombie zombie = (Zombie) entity;
             zombie.setBaby(baby);
             updateMobTarget(zombie, player, invisible);
+        }
+    }
+
+    public void spawnPigZombie(Player player, boolean baby, boolean invisible) {
+        Entity entity = utils.spawnEntityBehindPlayer(EntityType.PIG_ZOMBIE, player, invisible);
+
+        if (entity instanceof PigZombie) {
+            PigZombie pigZombie = (PigZombie) entity;
+            pigZombie.setAngry(true);
+            pigZombie.setBaby(baby);
+            updateMobTarget(pigZombie, player, invisible);
         }
     }
 
