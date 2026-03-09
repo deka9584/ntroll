@@ -61,7 +61,7 @@ public class UnluckyBlocksManager {
                     worldActions.put(Environment.THE_END.name(), actions);
                     break;
                 default:
-                    plugin.debugLog("Invalid world env " + worldEnv + " in unluckyblock-break-actions");
+                    worldActions.put(worldEnv, actions);
                     continue;
             }
         }
@@ -71,11 +71,11 @@ public class UnluckyBlocksManager {
         List<UnluckyAction> actions = worldActions.get(worldEnv);
 
         if (actions == null) {
-            if (!worldActions.containsKey("overworld")) {
+            if (!worldActions.containsKey("NORMAL")) {
                 return null;
             }
 
-            actions = worldActions.get("overworld");
+            actions = worldActions.get("NORMAL");
             plugin.debugLog("Key not found: " + worldEnv);
         }
 
