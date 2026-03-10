@@ -39,6 +39,7 @@ public class MainCommand implements CommandExecutor {
                     cs.sendMessage(utils.getMsgFromCfg("config-reloaded-msg"));
                     return true;
 
+                case "enable":
                 case "on":
                     if (!hasPermission(cs, permission + ".admin", noperm) || checkTrollBeEnable(cs, false))
                         return false;
@@ -47,6 +48,7 @@ public class MainCommand implements CommandExecutor {
                     cs.sendMessage(utils.getMsgFromCfg("troll-enabled-msg"));
                     return true;
 
+                case "disable":
                 case "off":
                     if (!hasPermission(cs, permission + ".admin", noperm) || checkTrollBeEnable(cs, true))
                         return false;
