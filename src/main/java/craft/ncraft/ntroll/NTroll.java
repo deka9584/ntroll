@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import craft.ncraft.ntroll.commands.CommandTab;
 import craft.ncraft.ntroll.commands.MainCommand;
 import craft.ncraft.ntroll.commands.SpawnMobBehindCommand;
 import craft.ncraft.ntroll.listeners.BlockBreakListener;
@@ -32,6 +33,9 @@ public class NTroll extends JavaPlugin {
         utils = new Utils(this);
         unluckyBlocksManager = new UnluckyBlocksManager(this);
         targetPlayerManager = new TargetPlayerManager(this);
+
+        getCommand("ntroll").setTabCompleter(new CommandTab(this));
+        getCommand("spawnmobbehind").setTabCompleter(new CommandTab(this));
 
         getCommand("ntroll").setExecutor(new MainCommand(this));
         getCommand("spawnmobbehind").setExecutor(new SpawnMobBehindCommand(this));
