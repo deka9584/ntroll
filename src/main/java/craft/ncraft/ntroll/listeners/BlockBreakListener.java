@@ -32,7 +32,7 @@ public class BlockBreakListener implements Listener {
         if (utils.chancePercent(plugin.getConfig().getInt("unluckyblock-break-chance"))) {
             UnluckyBlocksManager ubm = plugin.getUnluckyBlocksManager();
             Block block = event.getBlock();
-            String action = ubm.getRandomAction(player.getWorld().getEnvironment().name());
+            String action = ubm.getRandomAction(player);
 
             if (action == null) {
                 plugin.debugLog("Unable to get action for unlucky block break");

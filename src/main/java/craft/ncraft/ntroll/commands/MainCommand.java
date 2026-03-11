@@ -145,7 +145,7 @@ public class MainCommand implements CommandExecutor {
                     return false;
                 }
 
-                String breakActions = String.join("\n", plugin.getUnluckyBlocksManager().getActionsList());
+                String breakActions = String.join("\n", plugin.getUnluckyBlocksManager().getActionsNameList());
                 cs.sendMessage(utils.getMsgFromCfg("break-action-list").replaceAll("%list%", breakActions));
                 return true;
             }

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Creeper;
@@ -50,33 +49,16 @@ public class UnluckyBlocksManager {
                 actions.add(new UnluckyAction(key, section.getInt(key)));
             }
 
-            switch (worldEnv) {
-                case "overworld":
-                    worldActions.put(Environment.NORMAL.name(), actions);
-                    break;
-                case "nether":
-                    worldActions.put(Environment.NETHER.name(), actions);
-                    break;
-                case "end":
-                    worldActions.put(Environment.THE_END.name(), actions);
-                    break;
-                default:
-                    worldActions.put(worldEnv, actions);
-                    continue;
-            }
+            worldActions.put(worldEnv.toLowerCase(), actions);
         }
 }
 
-    public String getRandomAction(String worldEnv) {
-        List<UnluckyAction> actions = worldActions.get(worldEnv);
+    public String getRandomAction(Player player) {
+        List<UnluckyAction> actions = getActionListForPlayer(player);
 
         if (actions == null) {
-            if (!worldActions.containsKey("NORMAL")) {
-                return null;
-            }
-
-            actions = worldActions.get("NORMAL");
-            plugin.debugLog("Key not found: " + worldEnv);
+            actions = worldActions.get("overworld");
+            plugin.debugLog("Using default overworld break actions");
         }
 
         int totalWeight = actions.stream().mapToInt(UnluckyAction::getChance).sum();
@@ -94,7 +76,20 @@ public class UnluckyBlocksManager {
         return null;
     }
 
-    public List<String> getActionsList() {
+    public List<UnluckyAction> getActionListForPlayer(Player player) {
+        switch (player.getWorld().getEnvironment()) {
+            case NETHER:
+                return worldActions.get("nether");
+            case THE_END:
+                return worldActions.get("end");
+            case NORMAL:
+                return worldActions.get("overworld");
+            default:
+                return null;
+        }
+    }
+
+    public List<String> getActionsNameList() {
         List<String> mappedActions = new ArrayList<>();
 
         worldActions.forEach((key, list) -> {
