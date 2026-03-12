@@ -6,6 +6,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import craft.ncraft.ntroll.commands.MainCommand;
+import craft.ncraft.ntroll.commands.SpawnArrowCommand;
 import craft.ncraft.ntroll.commands.SpawnMobBehindCommand;
 import craft.ncraft.ntroll.listeners.BlockBreakListener;
 import craft.ncraft.ntroll.listeners.BlockPlaceListener;
@@ -35,6 +36,7 @@ public class NTroll extends JavaPlugin {
 
         getCommand("ntroll").setExecutor(new MainCommand(this));
         getCommand("spawnmobbehind").setExecutor(new SpawnMobBehindCommand(this));
+        getCommand("spawnarrow").setExecutor(new SpawnArrowCommand(this));
 
         registerEvents();
         

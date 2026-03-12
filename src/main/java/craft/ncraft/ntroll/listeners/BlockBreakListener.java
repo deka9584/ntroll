@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.metadata.FixedMetadataValue;
 
 import craft.ncraft.ntroll.NTroll;
 import craft.ncraft.ntroll.managers.UnluckyBlocksManager;
@@ -33,7 +32,7 @@ public class BlockBreakListener implements Listener {
         if (utils.chancePercent(plugin.getConfig().getInt("unluckyblock-break-chance"))) {
             UnluckyBlocksManager ubm = plugin.getUnluckyBlocksManager();
             Block block = event.getBlock();
-            String action = ubm.getRandomAction();
+            String action = ubm.getRandomAction(player);
 
             if (action == null) {
                 plugin.debugLog("Unable to get action for unlucky block break");
@@ -64,8 +63,23 @@ public class BlockBreakListener implements Listener {
                 case "spawn-invisible-silverfish":
                     ubm.spawnSilverfish(player, block, true);
                     break;
-                case "spawn-baby-sombie":
+                case "spawn-baby-zombie":
                     ubm.spawnZombie(player, true, false);
+                    break;
+                case "spawn-pig-zombie":
+                    ubm.spawnPigZombie(player, false, false);
+                    break;
+                case "spawn-baby-pig-zombie":
+                    ubm.spawnPigZombie(player, true, false);
+                    break;
+                case "spawn-shulker":
+                    ubm.spawnShulker(player, false);
+                    break;
+                case "spawn-shulker-bullet":
+                    ubm.spawnShulkerBullet(player);
+                    break;
+                case "spawn-arrow":
+                    utils.spawnArrowToPlayer(player);
                     break;
                 case "disable-drops":
                     event.setDropItems(false);
@@ -73,7 +87,7 @@ public class BlockBreakListener implements Listener {
                 case "place-bedrock":
                     event.setCancelled(true);
                     block.setType(Material.BEDROCK);
-                    block.setMetadata("ntroll-instant-break", new FixedMetadataValue(plugin, true));
+                    utils.setMetadataValue(block, "ntroll-instant-break", true);
                     break;
                 case "place-obsidian":
                     event.setCancelled(true);

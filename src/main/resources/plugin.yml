@@ -10,6 +10,9 @@ commands:
    spawnmobbehind:
     description: Spawn a mob behind a player
     permission: ntroll.spawnmobbehind
+   spawnarrow:
+    description: Spawn an arrow to a player
+    permission: ntroll.spawnarrow
 permissions:
   ntroll.command:
     description: Allows main command
@@ -18,5 +21,8 @@ permissions:
     description: Allows troll on/off/status
     default: op
   ntroll.spawnmobbehind:
-    descriptin: Allows spawning a mob behind a player
+    description: Allows spawning a mob behind a player
+    default: op
+  ntroll.spawnarrow:
+    description: Allows spawning an arrow to a player
     default: op

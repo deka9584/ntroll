@@ -105,7 +105,7 @@ public class MainCommand implements CommandExecutor {
                     if (!hasPermission(cs, permission + ".admin", noperm))
                         return false;
                     String breakActions = String.join("\n", plugin.getUnluckyBlocksManager()
-                            .getActionsList());
+                            .getActionsNameList());
                     cs.sendMessage(utils.getMsgFromCfg("break-action-list")
                             .replaceAll("%list%", breakActions));
                     return true;

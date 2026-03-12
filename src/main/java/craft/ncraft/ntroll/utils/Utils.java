@@ -5,10 +5,12 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.metadata.Metadatable;
 import org.bukkit.potion.PotionEffect;
@@ -76,6 +78,26 @@ public class Utils {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
+    public Arrow spawnArrowToPlayer(Player player) {
+        Location playerEyeLoc = player.getEyeLocation();
+        Vector playerDir = playerEyeLoc.getDirection().setY(0).normalize();
+
+        Location behind = playerEyeLoc.clone()
+            .subtract(playerDir.multiply(2))
+            .add(0, 0.2, 0);
+
+        if (behind.getBlock().isPassable()) {
+            Vector arrowDir = playerEyeLoc.toVector()
+                .subtract(behind.toVector())
+                .normalize();
+
+            return player.getWorld().spawnArrow(behind, arrowDir, 2.0F, 0F);
+        }
+
+        plugin.debugLog("No safe location to spawn arrow to player " + player.getName());
+        return null;
+    }
+
     public Entity spawnEntityOnBlock(EntityType entityType, Block block) {
         return block.getWorld().spawnEntity(block.getLocation().add(0.5, 0, 0.5), entityType);
     }
@@ -104,5 +126,9 @@ public class Utils {
 
         plugin.debugLog("Prevented spawning entity in unsafe location, Entity: " + entityType.name());
         return null;
+    }
+
+    public void setMetadataValue(Metadatable metadatable, String key, Object value) {
+        metadatable.setMetadata(key, new FixedMetadataValue(plugin, value));
     }
 }
