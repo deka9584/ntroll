@@ -1,28 +1,34 @@
-# NTROLL
+# NTroll
 
-Spigot Troll plugin
+Troll plugin for Minecraft Spigot servers
+
+Tested versions: 1.15 - 1.21
 
 ## Commads
 
-- `/ntroll on` Enable troll
+- `/ntroll on` Enables troll
 
-- `/ntroll off` Disable troll
+- `/ntroll off` Disables troll
 
-- `/ntroll status` Status troll
+- `/ntroll status` Shows troll status
 
-- `/ntroll add [player]` Add a target player
+- `/ntroll add [player]` Adds a target player
 
-- `/ntroll remove [player]` Remove a target player
+- `/ntroll remove [player]` Removes a target player
 
-- `/ntroll list` Show target player list
+- `/ntroll list` Shows target player list
 
-- `/ntroll break` Show target player list
+- `/ntroll break-actions` Shows block break action list with chances
 
-- `/ntroll break-actions` Show block break action list with chances
+- `/ntroll help` Shows help message
 
-- `/ntroll help` Show help message
+- `/spawnmobbehind [entity] [player] [flags?]` Spawns a mob behind a player with optional flags:
+    * `--force` Forces the entity to spawn on player location if no safe location behind
+    * `--invisible` Makes the entity invisible
+    * `--powered` Sets creepers powered
+    * `--autotarget` Mob attacks the player instantly
 
-- `/spawnmobbehind [entity] [player]` Spawn a mob behind a player, optional flags: --force, --invisible, --powered, --autotarget
+- `/spawnarrow [player]` Spawns an arrow to a player
 
 ## Permissions
 
@@ -31,3 +37,5 @@ Spigot Troll plugin
 - `ntroll.command.admin` Allows /ntroll admin subcommands for example 'on' and 'off'
 
 - `ntroll.spawnmobbehind` Allows /spawnmobbehind command
+
+- `ntroll.spawnarrow` Allows /spawnarrow command

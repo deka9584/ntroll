@@ -4,7 +4,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -71,7 +70,7 @@ public class SpawnMobBehindCommand implements CommandExecutor {
                         ((Creeper) mob).setPowered(true);
                     }
 
-                    if (params.contains("--autotarget") && target.getGameMode() == GameMode.SURVIVAL) {
+                    if (params.contains("--autotarget") && utils.isPlayerVulnerable(target)) {
                         mob.setTarget(target);
                     }
                 }
