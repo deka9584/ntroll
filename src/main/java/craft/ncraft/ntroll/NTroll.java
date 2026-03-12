@@ -37,6 +37,7 @@ public class NTroll extends JavaPlugin {
 
         getCommand("ntroll").setTabCompleter(new CommandTab(this));
         getCommand("spawnmobbehind").setTabCompleter(new CommandTab(this));
+        getCommand("spawnarrow").setTabCompleter(new CommandTab(this));
 
         getCommand("ntroll").setExecutor(new MainCommand(this));
         getCommand("spawnmobbehind").setExecutor(new SpawnMobBehindCommand(this));
