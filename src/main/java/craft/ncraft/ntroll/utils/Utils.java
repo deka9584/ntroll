@@ -79,27 +79,23 @@ public class Utils {
     }
 
     public Arrow spawnArrowToPlayer(Player player) {
-        Location playerLoc = player.getEyeLocation();
-        Vector playerDir = playerLoc.getDirection().setY(0).normalize();
+        Location playerEyeLoc = player.getEyeLocation();
+        Vector playerDir = playerEyeLoc.getDirection().setY(0).normalize();
 
-        Location behind = playerLoc.clone()
+        Location behind = playerEyeLoc.clone()
             .subtract(playerDir.multiply(2))
             .add(0, 0.2, 0);
 
-        if (!behind.getBlock().isPassable()) {
-            plugin.debugLog("No safe location to spawn arrow to player " + player.getName());
-            return null;
+        if (behind.getBlock().isPassable()) {
+            Vector arrowDir = playerEyeLoc.toVector()
+                .subtract(behind.toVector())
+                .normalize();
+
+            return player.getWorld().spawnArrow(behind, arrowDir, 2.0F, 0F);
         }
 
-        Vector arrowDir = player.getEyeLocation().toVector()
-            .subtract(behind.toVector())
-            .normalize();
-
-        Arrow arrow = player.getWorld().spawnArrow(behind, arrowDir, 2.0F, 0F);
-
-        arrow.setGravity(false);
-
-        return arrow;
+        plugin.debugLog("No safe location to spawn arrow to player " + player.getName());
+        return null;
     }
 
     public Entity spawnEntityOnBlock(EntityType entityType, Block block) {

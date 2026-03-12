@@ -43,7 +43,7 @@ public class SpawnArrowCommand implements CommandExecutor {
             Arrow arrow = utils.spawnArrowToPlayer(player);
 
             if (arrow == null) {
-                cs.sendMessage(ChatColor.RED + "Unable to spawn arrow to player " + player);
+                cs.sendMessage(ChatColor.RED + "Unable to spawn arrow to player " + player.getName());
                 return false;
             }
 
