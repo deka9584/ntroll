@@ -15,7 +15,6 @@ import org.bukkit.entity.Mob;
 import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Shulker;
-import org.bukkit.entity.ShulkerBullet;
 import org.bukkit.entity.Zombie;
 
 import craft.ncraft.ntroll.NTroll;
@@ -165,14 +164,6 @@ public class UnluckyBlocksManager {
 
         if (entity instanceof Shulker) {
             updateMobTarget((Shulker) entity, player, invisible);
-        }
-    }
-
-    public void spawnShulkerBullet(Player player) {
-        Entity entity = utils.spawnEntityBehindPlayer(EntityType.SHULKER_BULLET, player, false);
-
-        if (entity instanceof ShulkerBullet) {
-            ((ShulkerBullet)entity).setTarget(player);
         }
     }
 

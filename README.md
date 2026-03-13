@@ -23,12 +23,15 @@ Tested versions: 1.15 - 1.21
 - `/ntroll help` Shows help message
 
 - `/spawnmobbehind [entity] [player] [flags?]` Spawns a mob behind a player with optional flags:
+
     * `--force` Forces the entity to spawn on player location if no safe location behind
     * `--invisible` Makes the entity invisible
     * `--powered` Sets creepers powered
     * `--autotarget` Mob attacks the player instantly
 
 - `/spawnarrow [player]` Spawns an arrow to a player
+
+- `/spawnshulkerbullet [player]` Spawns a shulker bullet to a player
 
 ## Permissions
 
@@ -39,3 +42,5 @@ Tested versions: 1.15 - 1.21
 - `ntroll.spawnmobbehind` Allows /spawnmobbehind command
 
 - `ntroll.spawnarrow` Allows /spawnarrow command
+
+- `ntroll.spawnshulkerbullet` Allows /spawnshulkerbullet command

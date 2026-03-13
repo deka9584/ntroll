@@ -79,9 +79,11 @@ public class CommandTab implements TabCompleter {
                 }
                 break;
             case "spawnarrow":
-                if (args.length == 1) {
-                    return null;
-                }
+                if (args.length == 1) return null;
+                break;
+            case "spawnshulkerbullet":
+                if (args.length == 1) return null;
+                break;
         }
 
         return completeSubCommand;
