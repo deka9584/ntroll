@@ -35,6 +35,10 @@ public class CommandTab implements TabCompleter {
         "--powered",
         "--autotarget"
     };
+    private final List<String> entity_types = Arrays.stream(EntityType.values())
+        .filter(e -> e.isSpawnable())
+        .map(EntityType::name)
+        .collect(Collectors.toList());
 
     public CommandTab(NTroll plugin) {
         this.plugin = plugin;
@@ -47,53 +51,61 @@ public class CommandTab implements TabCompleter {
 
         switch (command.getName()) {
             case "ntroll":
-                if (args.length == 1 && args[0] != null) {
-                    StringUtil.copyPartialMatches(args[0], Arrays.asList(ntroll_subcommand), completeSubCommand);
-                } else if (args.length == 2 && args[1] != null) {
+                if (args.length == 1) {
+                    return StringUtil.copyPartialMatches(args[0], Arrays.asList(ntroll_subcommand), completeSubCommand);
+                } 
+                
+                if (args.length == 2) {
                     if (args[0].equalsIgnoreCase("add")) {
-                        StringUtil.copyPartialMatches(args[1], getNotTargetPlayerNames(), completeSubCommand);
-                    } else if (args[0].equalsIgnoreCase("remove")) {
-                        StringUtil.copyPartialMatches(args[1], plugin.getTargetPlayerManager().getPlayers(), completeSubCommand);
+                        return null;
+                    }
+                    
+                    if (args[0].equalsIgnoreCase("remove")) {
+                        return StringUtil.copyPartialMatches(args[1], plugin.getTargetPlayerManager().getPlayers(), completeSubCommand);
                     }
                 }
                 break;
             case "spawnmobbehind":
-                if (args.length == 1 && args[0] != null) {
-                    StringUtil.copyPartialMatches(args[0], getSpawnableEntityNames(), completeSubCommand);
-                } else if (args.length == 2 && args[1] != null) {
-                    StringUtil.copyPartialMatches(args[1], getOnlinePlayerNames(), completeSubCommand);
-                } else if (args.length >= 3 && args[2] != null) {
-                    StringUtil.copyPartialMatches(args[args.length - 1], Arrays.asList(spawnmobbehind_params), completeSubCommand);
+                if (args.length == 1) {
+                    return StringUtil.copyPartialMatches(args[0], entity_types, completeSubCommand);
+                } 
+                 
+                if (args.length == 2) {
+                    return null;
+                } 
+                
+                if (args.length >= 3) {
+                    return filterSpawnMobBehindParams(args, completeSubCommand);
                 }
                 break;
             case "spawnarrow":
-                if (args.length == 1 && args[0] != null) {
-                    StringUtil.copyPartialMatches(args[0], getOnlinePlayerNames(), completeSubCommand);
+                if (args.length == 1) {
+                    return null;
                 }
         }
 
         return completeSubCommand;
 	}
 
-    private List<String> getOnlinePlayerNames() {
-        return plugin.getServer().getOnlinePlayers()
-            .stream()
-            .map(p -> p.getName())
-            .collect(Collectors.toList());
-    }
+    private List<String> filterSpawnMobBehindParams(String[] args, List<String> dstList) {
+        int lastArgI = args.length - 1;
+        String token = args[lastArgI];
 
-    private List<String> getNotTargetPlayerNames() {
-        return plugin.getServer().getOnlinePlayers()
-            .stream()
-            .map(p -> p.getName())
-            .filter(n -> !plugin.getTargetPlayerManager().isTargetPlayer(n))
-            .collect(Collectors.toList());
-    }
+        for (String param : spawnmobbehind_params) {
+            boolean written = false;
 
-    public List<String> getSpawnableEntityNames() {
-        return Arrays.stream(EntityType.values())
-            .filter(e -> e.isSpawnable())
-            .map(EntityType::name)
-            .collect(Collectors.toList());
+            for (int i = 0; i < lastArgI; i++) {
+                if (param.equals(args[i])) {
+                    written = true;
+                    break;
+                }
+            }
+
+            if (!written && param.startsWith(token)) {
+                dstList.add(param);
+            }
+        }
+
+        return dstList;
     }
 }
