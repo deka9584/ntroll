@@ -9,6 +9,7 @@ import craft.ncraft.ntroll.commands.CommandTab;
 import craft.ncraft.ntroll.commands.MainCommand;
 import craft.ncraft.ntroll.commands.SpawnArrowCommand;
 import craft.ncraft.ntroll.commands.SpawnMobBehindCommand;
+import craft.ncraft.ntroll.commands.SpawnShulkerBulletCommand;
 import craft.ncraft.ntroll.listeners.BlockBreakListener;
 import craft.ncraft.ntroll.listeners.BlockPlaceListener;
 import craft.ncraft.ntroll.listeners.EntityTargetListener;
@@ -38,10 +39,12 @@ public class NTroll extends JavaPlugin {
         getCommand("ntroll").setTabCompleter(new CommandTab(this));
         getCommand("spawnmobbehind").setTabCompleter(new CommandTab(this));
         getCommand("spawnarrow").setTabCompleter(new CommandTab(this));
+        getCommand("spawnshulkerbullet").setTabCompleter(new CommandTab(this));
 
         getCommand("ntroll").setExecutor(new MainCommand(this));
         getCommand("spawnmobbehind").setExecutor(new SpawnMobBehindCommand(this));
         getCommand("spawnarrow").setExecutor(new SpawnArrowCommand(this));
+        getCommand("spawnshulkerbullet").setExecutor(new SpawnShulkerBulletCommand(this));
 
         registerEvents();
         

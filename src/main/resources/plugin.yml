@@ -13,6 +13,9 @@ commands:
    spawnarrow:
     description: Spawn an arrow to a player
     permission: ntroll.spawnarrow
+   spawnshulkerbullet:
+    description: Spawn an shulker bullet to a player
+    permission: ntroll.spawnshulkerbullet
 permissions:
   ntroll.command:
     description: Allows main command
@@ -25,4 +28,7 @@ permissions:
     default: op
   ntroll.spawnarrow:
     description: Allows spawning an arrow to a player
+    default: op
+  ntroll.spawnshulkerbullet:
+    description: Allows spawning a shulker bullet to a player
     default: op
