@@ -10,6 +10,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.ShulkerBullet;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.metadata.Metadatable;
@@ -125,6 +126,31 @@ public class Utils {
         }
 
         plugin.debugLog("Prevented spawning entity in unsafe location, Entity: " + entityType.name());
+        return null;
+    }
+
+    public ShulkerBullet spawnShulkerBullet(Player player) {
+        Location playerLoc = player.getLocation();
+        Vector direction = playerLoc.getDirection();
+
+        direction.setY(0);
+        direction.normalize();
+
+        Location behind = playerLoc.clone().subtract(direction.multiply(6));
+
+        if (behind.getBlock().isPassable()) {
+            plugin.debugLog("Spawning shulker bullet behind player " + player.getName());
+            
+            Entity entity = player.getWorld().spawnEntity(behind.add(0.5, 1.5, 0.5), EntityType.SHULKER_BULLET);
+
+            if (entity instanceof ShulkerBullet) {
+                ShulkerBullet bullet = (ShulkerBullet) entity;
+                bullet.setTarget(player);
+                return bullet;
+            }
+        }
+
+        plugin.debugLog("No safe location for shulker bullet behind the player");
         return null;
     }
 
