@@ -11,6 +11,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.ShulkerBullet;
@@ -118,10 +119,10 @@ public class Utils {
 
     public Entity spawnEntityBehindPlayer(EntityType entityType, Player player, boolean force) {
         Location playerLoc = player.getLocation();
-        Vector direction = playerLoc.getDirection();
 
-        direction.setY(0);
-        direction.normalize();
+        Vector direction = playerLoc.getDirection()
+            .setY(0)
+            .normalize();
 
         Location behind = playerLoc.clone().subtract(direction.multiply(2));
         Location feet = behind.clone();
@@ -142,19 +143,19 @@ public class Utils {
         return null;
     }
 
-    public ShulkerBullet spawnShulkerBullet(Player player) {
-        Location playerLoc = player.getLocation();
-        Vector direction = playerLoc.getDirection();
+    public ShulkerBullet spawnShulkerBulletToPlayer(Player player) {
+        Location playerLoc = player.getEyeLocation();
 
-        direction.setY(0);
-        direction.normalize();
+        Vector direction = playerLoc.getDirection()
+            .setY(0)
+            .normalize();
 
         Location behind = playerLoc.clone().subtract(direction.multiply(6));
 
         if (behind.getBlock().isPassable()) {
             plugin.debugLog("Spawning shulker bullet behind player " + player.getName());
             
-            Entity entity = player.getWorld().spawnEntity(behind.add(0.5, 1.5, 0.5), EntityType.SHULKER_BULLET);
+            Entity entity = player.getWorld().spawnEntity(behind.add(0.5, 0.5, 0.5), EntityType.SHULKER_BULLET);
 
             if (entity instanceof ShulkerBullet) {
                 ShulkerBullet bullet = (ShulkerBullet) entity;
@@ -164,6 +165,35 @@ public class Utils {
         }
 
         plugin.debugLog("No safe location for shulker bullet behind the player");
+        return null;
+    }
+
+    public Fireball spawnFireballToPlayer(Player player, boolean incendiary) {
+        Location playerLoc = player.getEyeLocation();
+
+        Vector direction = playerLoc.getDirection()
+            .setY(0)
+            .normalize();
+
+        Location behind = playerLoc.clone().subtract(direction.multiply(3));
+
+        if (behind.getBlock().isPassable()) {
+            plugin.debugLog("Spawning shulker bullet behind player " + player.getName());
+            behind.add(0.5, 0.5, 0.5);
+            Entity entity = player.getWorld().spawnEntity(behind, EntityType.FIREBALL);
+
+            if (entity instanceof Fireball) {
+                Fireball fireball = (Fireball) entity;
+
+                fireball.setDirection(playerLoc.toVector()
+                    .subtract(behind.toVector())
+                    .normalize());
+
+                fireball.setIsIncendiary(incendiary);
+
+                return fireball;
+            }
+        }
         return null;
     }
 
