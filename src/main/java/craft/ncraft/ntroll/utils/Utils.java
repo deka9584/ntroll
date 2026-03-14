@@ -1,6 +1,9 @@
 package craft.ncraft.ntroll.utils;
 
+import java.util.Arrays;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -11,6 +14,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.ShulkerBullet;
+import org.bukkit.entity.AbstractArrow.PickupStatus;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.metadata.Metadatable;
@@ -43,6 +47,12 @@ public class Utils {
 
     public boolean chancePercent(int percent) {
         return getRandomInt(1, 100) <= percent;
+    }
+
+    public Set<String> extractCommandParams(String[] args) {
+        return Arrays.stream(args)
+            .filter(str -> str.startsWith("--"))
+            .collect(Collectors.toSet());
     }
 
     public MetadataValue extractMetadataValue(Metadatable metadatable, String key) {
@@ -92,7 +102,10 @@ public class Utils {
                 .subtract(behind.toVector())
                 .normalize();
 
-            return player.getWorld().spawnArrow(behind, arrowDir, 2.0F, 0F);
+            Arrow arrow = player.getWorld().spawnArrow(behind, arrowDir, 2.0F, 0F);
+            
+            arrow.setPickupStatus(PickupStatus.DISALLOWED);
+            return arrow;
         }
 
         plugin.debugLog("No safe location to spawn arrow to player " + player.getName());

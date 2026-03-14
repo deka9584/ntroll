@@ -35,6 +35,10 @@ public class CommandTab implements TabCompleter {
         "--powered",
         "--autotarget"
     };
+    private final String[] spawnarrow_params = {
+        "--critical",
+        "--flame"
+    };
     private final List<String> entity_types = Arrays.stream(EntityType.values())
         .filter(e -> e.isSpawnable())
         .map(EntityType::name)
@@ -75,11 +79,17 @@ public class CommandTab implements TabCompleter {
                 } 
                 
                 if (args.length >= 3) {
-                    return filterSpawnMobBehindParams(args, completeSubCommand);
+                    return filterParams(args, spawnmobbehind_params, completeSubCommand);
                 }
                 break;
             case "spawnarrow":
-                if (args.length == 1) return null;
+                if (args.length == 1) {
+                    return null;
+                }
+
+                if (args.length >= 1) {
+                    return filterParams(args, spawnarrow_params, completeSubCommand);
+                }
                 break;
             case "spawnshulkerbullet":
                 if (args.length == 1) return null;
@@ -89,11 +99,11 @@ public class CommandTab implements TabCompleter {
         return completeSubCommand;
 	}
 
-    private List<String> filterSpawnMobBehindParams(String[] args, List<String> dstList) {
+    private List<String> filterParams(String[] args, String[] params, List<String> dstList) {
         int lastArgI = args.length - 1;
         String token = args[lastArgI];
 
-        for (String param : spawnmobbehind_params) {
+        for (String param : params) {
             boolean written = false;
 
             for (int i = 0; i < lastArgI; i++) {
