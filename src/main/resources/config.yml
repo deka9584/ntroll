@@ -15,8 +15,6 @@ enable-troll: false
 debug: false
 target-players: []
 # Chance that an unlucky action happens on block break
-# Valid actions:
-
 unluckyblock-break-chance: 25
 unluckyblock-break-actions:
   overworld:
@@ -54,5 +52,10 @@ unluckyblock-break-actions:
 cancel-block-place-chance: 15
 cancel-block-place-sneaking-chance: 30
 auto-ignite-tnt-chance: 50
-rocket-explosion-chance: 15
+rocket-explosion-chance: 10
+# Chance that elytra breaks when player reaches a min height
+# Set min-height to -1 to disable
+break-elytra:
+  min-height: 200
+  chance: 25
 faster-mob-chance: 25
