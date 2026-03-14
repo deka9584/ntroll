@@ -1,5 +1,7 @@
 package craft.ncraft.ntroll.commands;
 
+import java.util.Set;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,7 +31,7 @@ public class SpawnArrowCommand implements CommandExecutor {
             }
 
             if (args.length == 0) {
-                cs.sendMessage(ChatColor.RED + "Arguments: [player]");
+                cs.sendMessage(ChatColor.RED + "Arguments: [player] [params?]");
                 return false;
             }
 
@@ -40,11 +42,20 @@ public class SpawnArrowCommand implements CommandExecutor {
                 return false;
             }
 
+            Set<String> params = utils.extractCommandParams(args);
             Arrow arrow = utils.spawnArrowToPlayer(player);
 
             if (arrow == null) {
                 cs.sendMessage(ChatColor.RED + "Unable to spawn arrow to player " + player.getName());
                 return false;
+            }
+
+            if (params.contains("--critical")) {
+                arrow.setCritical(true);
+            }
+            
+            if (params.contains("--flame")) {
+                arrow.setFireTicks(100);
             }
 
             cs.sendMessage(ChatColor.GREEN + "Spawned arrow to " + player.getName());

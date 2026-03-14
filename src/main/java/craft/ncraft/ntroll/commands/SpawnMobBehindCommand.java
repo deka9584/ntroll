@@ -1,8 +1,6 @@
 package craft.ncraft.ntroll.commands;
 
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -36,7 +34,7 @@ public class SpawnMobBehindCommand implements CommandExecutor {
             }
 
             if (args.length > 1) {
-                Set<String> params = Stream.of(args).filter(str -> str.startsWith("--")).collect(Collectors.toSet());
+                Set<String> params = utils.extractCommandParams(args);
                 EntityType entityType = utils.getEntityTypeByName(args[0]);
 
                 if (entityType == null || !entityType.isSpawnable()) {
@@ -79,7 +77,7 @@ public class SpawnMobBehindCommand implements CommandExecutor {
                 return true;
             }
 
-            cs.sendMessage(ChatColor.RED + "Arguments: [entity] [player], Optional params: --force, --invisible, --powered, --autotarget");
+            cs.sendMessage(ChatColor.RED + "Arguments: [entity] [player] [params?]");
             return false;
         }
 
