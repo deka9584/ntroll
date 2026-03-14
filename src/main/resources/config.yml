@@ -18,6 +18,9 @@ target-players: []
 unluckyblock-break-chance: 25
 unluckyblock-break-actions:
   overworld:
+    disable-drops: 20
+    cancel-break: 10
+    destroy-item: 10
     spawn-creeper: 5
     spawn-invisible-creeper: 5
     spawn-invisible-charged-creeper: 5
@@ -27,30 +30,27 @@ unluckyblock-break-actions:
     spawn-baby-zombie: 5
     spawn-invisible-silverfish: 5
     spawn-arrow: 5
-    disable-drops: 20
     place-bedrock: 5
     place-obsidian: 5
-    destroy-item: 10
     explosion: 5
-    cancel-break: 10
   nether:
+    disable-drops: 30
+    cancel-break: 20
     spawn-enderman: 10
+    spawn-arrow: 10
+    destroy-item: 10
     spawn-pig-zombie: 5
     spawn-baby-pig-zombie: 5
-    spawn-arrow: 10
-    disable-drops: 30
     place-obsidian: 5
     spawn-fireball: 5
-    destroy-item: 10
-    cancel-break: 20
   end:
     spawn-enderman: 20
+    cancel-break: 20
+    disable-drops: 20
+    destroy-item: 10
     spawn-invisible-enderman: 10
     spawn-shulker: 10
     spawn-shulker-bullet: 10
-    disable-drops: 20
-    destroy-item: 10
-    cancel-break: 20
 cancel-block-place-chance: 15
 cancel-block-place-sneaking-chance: 30
 auto-ignite-tnt-chance: 50
