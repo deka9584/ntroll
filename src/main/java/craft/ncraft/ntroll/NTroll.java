@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import craft.ncraft.ntroll.commands.CommandTab;
 import craft.ncraft.ntroll.commands.MainCommand;
 import craft.ncraft.ntroll.commands.SpawnArrowCommand;
+import craft.ncraft.ntroll.commands.SpawnFireballCommand;
 import craft.ncraft.ntroll.commands.SpawnMobBehindCommand;
 import craft.ncraft.ntroll.commands.SpawnShulkerBulletCommand;
 import craft.ncraft.ntroll.listeners.BlockBreakListener;
@@ -40,11 +41,13 @@ public class NTroll extends JavaPlugin {
         getCommand("spawnmobbehind").setTabCompleter(new CommandTab(this));
         getCommand("spawnarrow").setTabCompleter(new CommandTab(this));
         getCommand("spawnshulkerbullet").setTabCompleter(new CommandTab(this));
+        getCommand("spawnfireball").setTabCompleter(new CommandTab(this));
 
         getCommand("ntroll").setExecutor(new MainCommand(this));
         getCommand("spawnmobbehind").setExecutor(new SpawnMobBehindCommand(this));
         getCommand("spawnarrow").setExecutor(new SpawnArrowCommand(this));
         getCommand("spawnshulkerbullet").setExecutor(new SpawnShulkerBulletCommand(this));
+        getCommand("spawnfireball").setExecutor(new SpawnFireballCommand(this));
 
         registerEvents();
         

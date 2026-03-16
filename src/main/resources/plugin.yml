@@ -16,6 +16,9 @@ commands:
    spawnshulkerbullet:
     description: Spawn an shulker bullet to a player
     permission: ntroll.spawnshulkerbullet
+   spawnfireball:
+    description: Spawn a fireball to a player
+    permission: ntroll.spawnfireball
 permissions:
   ntroll.command:
     description: Allows main command
@@ -31,4 +34,7 @@ permissions:
     default: op
   ntroll.spawnshulkerbullet:
     description: Allows spawning a shulker bullet to a player
+    default: op
+  ntroll.spawnfireball:
+    description: Allows spawning a fireball to a player
     default: op

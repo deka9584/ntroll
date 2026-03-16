@@ -1,21 +1,23 @@
 package craft.ncraft.ntroll.commands;
 
+import java.util.Set;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.ShulkerBullet;
 
 import craft.ncraft.ntroll.NTroll;
 import craft.ncraft.ntroll.utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 
-public class SpawnShulkerBulletCommand implements CommandExecutor {
+public class SpawnFireballCommand implements CommandExecutor {
     private final NTroll plugin;
     private final Utils utils;
 
-    public SpawnShulkerBulletCommand(NTroll plugin) {
+    public SpawnFireballCommand(NTroll plugin) {
         this.plugin = plugin;
         this.utils = plugin.getUtils();
     }
@@ -29,7 +31,7 @@ public class SpawnShulkerBulletCommand implements CommandExecutor {
             }
 
             if (args.length == 0) {
-                cs.sendMessage(ChatColor.RED + "Arguments: [player]");
+                cs.sendMessage(ChatColor.RED + "Arguments: [player] [params?]");
                 return false;
             }
 
@@ -40,17 +42,19 @@ public class SpawnShulkerBulletCommand implements CommandExecutor {
                 return false;
             }
 
-            ShulkerBullet bullet = utils.spawnShulkerBulletToPlayer(player);
+            Set<String> params = utils.extractCommandParams(args);
+            Fireball fireball = utils.spawnFireballToPlayer(player, params.contains("--incendiary"));
 
-            if (bullet == null) {
-                cs.sendMessage(ChatColor.RED + "Unable to spawn bullet to player " + player.getName());
+            if (fireball == null) {
+                cs.sendMessage(ChatColor.RED + "Unable to spawn arrow to player " + player.getName());
                 return false;
             }
 
-            cs.sendMessage(ChatColor.GREEN + "Spawned bullet to " + player.getName());
+            cs.sendMessage(ChatColor.GREEN + "Spawned arrow to " + player.getName());
             return true;
         }
 
         return false;
     }
+    
 }

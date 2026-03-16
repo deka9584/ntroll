@@ -29,9 +29,16 @@ Tested versions: 1.15 - 1.21
     * `--powered` Sets creepers powered
     * `--autotarget` Mob attacks the player instantly
 
-- `/spawnarrow [player]` Spawns an arrow to a player
+- `/spawnarrow [player] [flags?]` Spawns an arrow to a player with optional flags:
+
+    * `--critical` Sets arrow critical
+    * `--flame` Sets arrow flame
 
 - `/spawnshulkerbullet [player]` Spawns a shulker bullet to a player
+
+- `/spawnfireball [player] [flags?]` Spawns a fireball to a player with optional flags:
+
+    * `--incendiary` Sets fireball incendiary
 
 ## Permissions
 
@@ -44,3 +51,5 @@ Tested versions: 1.15 - 1.21
 - `ntroll.spawnarrow` Allows /spawnarrow command
 
 - `ntroll.spawnshulkerbullet` Allows /spawnshulkerbullet command
+
+- `ntroll.spawnfireball` Allows /spawnfireball command

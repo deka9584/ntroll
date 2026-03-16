@@ -39,6 +39,9 @@ public class CommandTab implements TabCompleter {
         "--critical",
         "--flame"
     };
+    private final String[] spawnfireball_params = {
+        "--incendiary"
+    };
     private final List<String> entity_types = Arrays.stream(EntityType.values())
         .filter(e -> e.isSpawnable())
         .map(EntityType::name)
@@ -93,6 +96,15 @@ public class CommandTab implements TabCompleter {
                 break;
             case "spawnshulkerbullet":
                 if (args.length == 1) return null;
+                break;
+            case "spawnfireball":
+                if (args.length == 1) {
+                    return null;
+                }
+
+                if (args.length >= 1) {
+                    return filterParams(args, spawnfireball_params, completeSubCommand);
+                }
                 break;
         }
 
