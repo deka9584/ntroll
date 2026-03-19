@@ -1,7 +1,8 @@
 package craft.ncraft.ntroll.commands;
 
-import java.util.Set;
+import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,6 +14,7 @@ import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 
 import craft.ncraft.ntroll.NTroll;
+import craft.ncraft.ntroll.utils.EntityUtils;
 import craft.ncraft.ntroll.utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 
@@ -34,8 +36,8 @@ public class SpawnMobBehindCommand implements CommandExecutor {
             }
 
             if (args.length > 1) {
-                Set<String> params = utils.extractCommandParams(args);
-                EntityType entityType = utils.getEntityTypeByName(args[0]);
+                Map<String, String> params = utils.extractCommandParams(args);
+                EntityType entityType = EntityUtils.getEntityTypeByName(args[0]);
 
                 if (entityType == null || !entityType.isSpawnable()) {
                     cs.sendMessage(ChatColor.RED + "Entity not found or not spawnable");
@@ -49,7 +51,7 @@ public class SpawnMobBehindCommand implements CommandExecutor {
                     return false;
                 }
 
-                boolean forceSafeLocation = params.contains("--force");
+                boolean forceSafeLocation = params.containsKey("--force");
                 Entity entity = utils.spawnEntityBehindPlayer(entityType, target, forceSafeLocation);
 
                 if (entity == null) {
@@ -60,16 +62,24 @@ public class SpawnMobBehindCommand implements CommandExecutor {
                 if (entity instanceof Mob) {
                     Mob mob = (Mob) entity;
 
-                    if (params.contains("--invisible")) {
-                        utils.addMobInvisibility(mob, 200);
+                    if (params.containsKey("--invisible")) {
+                        EntityUtils.addMobInvisibility(mob, 200);
                     }
 
-                    if (params.contains("--powered") && mob.getType() == EntityType.CREEPER) {
+                    if (params.containsKey("--powered") && mob.getType() == EntityType.CREEPER) {
                         ((Creeper) mob).setPowered(true);
                     }
 
-                    if (params.contains("--autotarget") && utils.isPlayerVulnerable(target)) {
+                    if (params.containsKey("--autotarget") && EntityUtils.isPlayerVulnerable(target)) {
                         mob.setTarget(target);
+                    }
+
+                    if (params.containsKey("--scale")) {
+                        String scale = params.get("--scale");
+
+                        if (!StringUtils.isNumeric(scale) || !EntityUtils.setMobScale(mob, Double.parseDouble(scale))) {
+                            cs.sendMessage(ChatColor.RED + "Unable to apply scale: " + scale);
+                        }
                     }
                 }
 

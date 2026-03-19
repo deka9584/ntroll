@@ -19,6 +19,7 @@ import org.bukkit.entity.Zombie;
 
 import craft.ncraft.ntroll.NTroll;
 import craft.ncraft.ntroll.model.UnluckyAction;
+import craft.ncraft.ntroll.utils.EntityUtils;
 import craft.ncraft.ntroll.utils.Utils;
 
 public class UnluckyBlocksManager {
@@ -168,12 +169,12 @@ public class UnluckyBlocksManager {
     }
 
     private void updateMobTarget(Mob mob, Player target, boolean invisible) {
-        if (target != null && utils.isPlayerVulnerable(target)) {
+        if (target != null && EntityUtils.isPlayerVulnerable(target)) {
             mob.setTarget(target);
         }
 
         if (invisible) {
-            utils.addMobInvisibility(mob, 200);
+            EntityUtils.addMobInvisibility(mob, 200);
         }
     }
 }
