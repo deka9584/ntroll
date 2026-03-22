@@ -77,7 +77,7 @@ public class SpawnMobBehindCommand implements CommandExecutor {
                     if (params.containsKey("--scale")) {
                         String scale = params.get("--scale");
 
-                        if (!StringUtils.isNumeric(scale) || !EntityUtils.setMobScale(mob, Double.parseDouble(scale))) {
+                        if (scale.isEmpty() || !StringUtils.isNumeric(scale) || !EntityUtils.setMobScale(mob, Double.parseDouble(scale))) {
                             cs.sendMessage(ChatColor.RED + "Unable to apply scale: " + scale);
                         }
                     }
