@@ -47,7 +47,7 @@ public class SpawnMobBehindCommand implements CommandExecutor {
                 Player target = plugin.getServer().getPlayer(args[1]);
 
                 if (target == null) {
-                    cs.sendMessage(ChatColor.RED + "Player not found");
+                    utils.getMsgFromCfg("player-not-found");
                     return false;
                 }
 

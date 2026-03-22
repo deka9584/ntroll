@@ -36,7 +36,7 @@ public class SpawnShulkerBulletCommand implements CommandExecutor {
             Player player = plugin.getServer().getPlayer(args[0]);
 
             if (player == null) {
-                cs.sendMessage(ChatColor.RED + "Player not found");
+                utils.getMsgFromCfg("player-not-found");
                 return false;
             }
 

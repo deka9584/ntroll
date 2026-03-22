@@ -9,6 +9,7 @@ removed-player-msg: "%prefix% &6Player %player% è stato rimosso!"
 target-player-list: "%prefix% &6Giocatori aggiunti: %list%"
 break-action-list: "%prefix% &6Azioni rottura blocchi: \n%list%"
 backup-reminder: "%prefix% &6IMPORTANTE: Fare sempre il backup del server prima di attivare"
+player-not-found: "%prefix% &cPlayer not found"
 # ENABLE THE ENTIRE PLUGIN
 # Backup the server before!
 enable-troll: false
