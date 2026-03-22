@@ -32,7 +32,8 @@ public class CommandTab implements TabCompleter {
         "--force",
         "--invisible",
         "--powered",
-        "--autotarget"
+        "--autotarget",
+        "--scale="
     };
     private final String[] spawnarrow_params = {
         "--critical",
