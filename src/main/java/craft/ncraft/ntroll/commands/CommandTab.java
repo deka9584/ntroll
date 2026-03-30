@@ -37,7 +37,8 @@ public class CommandTab implements TabCompleter {
     };
     private final String[] spawnarrow_params = {
         "--critical",
-        "--flame"
+        "--flame",
+        "--damage="
     };
     private final String[] spawnfireball_params = {
         "--incendiary"
