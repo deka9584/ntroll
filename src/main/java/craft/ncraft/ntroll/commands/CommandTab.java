@@ -3,15 +3,14 @@ package craft.ncraft.ntroll.commands;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.EntityType;
 import org.bukkit.util.StringUtil;
 
 import craft.ncraft.ntroll.NTroll;
+import craft.ncraft.ntroll.utils.EntityUtils;
 
 public class CommandTab implements TabCompleter {
     private final NTroll plugin;
@@ -33,7 +32,8 @@ public class CommandTab implements TabCompleter {
         "--force",
         "--invisible",
         "--powered",
-        "--autotarget"
+        "--autotarget",
+        "--scale="
     };
     private final String[] spawnarrow_params = {
         "--critical",
@@ -42,10 +42,7 @@ public class CommandTab implements TabCompleter {
     private final String[] spawnfireball_params = {
         "--incendiary"
     };
-    private final List<String> entity_types = Arrays.stream(EntityType.values())
-        .filter(e -> e.isSpawnable())
-        .map(EntityType::name)
-        .collect(Collectors.toList());
+    private final List<String> entity_types = EntityUtils.getSpawnableEntityTypeList();
 
     public CommandTab(NTroll plugin) {
         this.plugin = plugin;

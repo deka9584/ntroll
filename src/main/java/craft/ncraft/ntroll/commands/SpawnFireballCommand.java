@@ -1,6 +1,6 @@
 package craft.ncraft.ntroll.commands;
 
-import java.util.Set;
+import java.util.Map;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -38,12 +38,12 @@ public class SpawnFireballCommand implements CommandExecutor {
             Player player = plugin.getServer().getPlayer(args[0]);
 
             if (player == null) {
-                cs.sendMessage(ChatColor.RED + "Player not found");
+                utils.getMsgFromCfg("player-not-found");
                 return false;
             }
 
-            Set<String> params = utils.extractCommandParams(args);
-            Fireball fireball = utils.spawnFireballToPlayer(player, params.contains("--incendiary"));
+            Map<String, String> params = utils.extractCommandParams(args);
+            Fireball fireball = utils.spawnFireballToPlayer(player, params.containsKey("--incendiary"));
 
             if (fireball == null) {
                 cs.sendMessage(ChatColor.RED + "Unable to spawn arrow to player " + player.getName());

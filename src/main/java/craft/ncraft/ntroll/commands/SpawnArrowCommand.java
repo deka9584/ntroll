@@ -1,6 +1,6 @@
 package craft.ncraft.ntroll.commands;
 
-import java.util.Set;
+import java.util.Map;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -38,11 +38,11 @@ public class SpawnArrowCommand implements CommandExecutor {
             Player player = plugin.getServer().getPlayer(args[0]);
 
             if (player == null) {
-                cs.sendMessage(ChatColor.RED + "Player not found");
+                utils.getMsgFromCfg("player-not-found");
                 return false;
             }
 
-            Set<String> params = utils.extractCommandParams(args);
+            Map<String, String> params = utils.extractCommandParams(args);
             Arrow arrow = utils.spawnArrowToPlayer(player);
 
             if (arrow == null) {
@@ -50,11 +50,11 @@ public class SpawnArrowCommand implements CommandExecutor {
                 return false;
             }
 
-            if (params.contains("--critical")) {
+            if (params.containsKey("--critical")) {
                 arrow.setCritical(true);
             }
             
-            if (params.contains("--flame")) {
+            if (params.containsKey("--flame")) {
                 arrow.setFireTicks(100);
             }
 

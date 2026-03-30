@@ -1,26 +1,21 @@
 package craft.ncraft.ntroll.utils;
 
-import java.util.Arrays;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Fireball;
-import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.ShulkerBullet;
 import org.bukkit.entity.AbstractArrow.PickupStatus;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.metadata.Metadatable;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import craft.ncraft.ntroll.NTroll;
@@ -33,27 +28,21 @@ public class Utils {
         this.plugin = plugin;
     }
 
-    public boolean addMobInvisibility(Mob mob, int duration) {
-        return mob.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, duration, 1, false, false));
-    }
-
-    public boolean isPlayerVulnerable(Player player) {
-        if (player.isInvulnerable()) {
-            return false;
-        }
-
-        GameMode gm = player.getGameMode();
-        return gm == GameMode.ADVENTURE || gm == GameMode.SURVIVAL;
-    }
-
     public boolean chancePercent(int percent) {
         return getRandomInt(1, 100) <= percent;
     }
 
-    public Set<String> extractCommandParams(String[] args) {
-        return Arrays.stream(args)
-            .filter(str -> str.startsWith("--"))
-            .collect(Collectors.toSet());
+    public Map<String, String> extractCommandParams(String[] args) {
+        Map<String, String> params = new HashMap<>();
+
+        for (String arg : args) {
+            if (arg.startsWith("--")) {
+                String[] par = arg.split("=");
+                params.put(par[0], par.length > 1 ? par[1] : "");
+            }
+        }
+        
+        return params;
     }
 
     public MetadataValue extractMetadataValue(Metadatable metadatable, String key) {
@@ -75,15 +64,6 @@ public class Utils {
 
     public String translateColorCodes(String string) {
         return ChatColor.translateAlternateColorCodes('&', string);
-    }
-
-    public EntityType getEntityTypeByName(String name) {
-        for (EntityType type : EntityType.values()) {
-            if (type.name().equalsIgnoreCase(name)) {
-                return type;
-            }
-        }
-        return null;
     }
 
     public int getRandomInt(int min, int max) {

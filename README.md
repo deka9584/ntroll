@@ -28,6 +28,7 @@ Tested versions: 1.15 - 1.21
     * `--invisible` Makes the entity invisible
     * `--powered` Sets creepers powered
     * `--autotarget` Mob attacks the player instantly
+    * `--scale=[number]` Sets mob size scale (default: 1.0)
 
 - `/spawnarrow [player] [flags?]` Spawns an arrow to a player with optional flags:
 
