@@ -10,6 +10,7 @@ target-player-list: "%prefix% &6Giocatori aggiunti: %list%"
 break-action-list: "%prefix% &6Azioni rottura blocchi: \n%list%"
 backup-reminder: "%prefix% &6IMPORTANTE: Fare sempre il backup del server prima di attivare"
 player-not-found: "%prefix% &cPlayer not found"
+unable-to-apply-flag: "%prefix% &cUnable to apply flag %flag% with value %value%"
 # ENABLE THE ENTIRE PLUGIN
 # Backup the server before!
 enable-troll: false

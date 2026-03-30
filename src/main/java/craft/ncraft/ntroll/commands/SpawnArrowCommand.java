@@ -2,6 +2,7 @@ package craft.ncraft.ntroll.commands;
 
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -55,7 +56,18 @@ public class SpawnArrowCommand implements CommandExecutor {
             }
             
             if (params.containsKey("--flame")) {
-                arrow.setFireTicks(100);
+                String flame = params.get("--flame");
+                arrow.setFireTicks(!flame.isEmpty() && StringUtils.isNumeric(flame) ? Integer.parseInt(flame) : 100);
+            }
+
+            if (params.containsKey("--damage")) {
+                String damage = params.get("--damage");
+
+                if (!damage.isEmpty() && StringUtils.isNumeric(damage)) {
+                    arrow.setDamage(Double.parseDouble(damage));
+                } else {
+                    utils.getMsgFromCfg("unable-to-apply-flag").replace("%flag%", "--damage").replace("%value%", damage);
+                }
             }
 
             cs.sendMessage(ChatColor.GREEN + "Spawned arrow to " + player.getName());

@@ -34,6 +34,8 @@ Tested versions: 1.15 - 1.21
 
     * `--critical` Sets arrow critical
     * `--flame` Sets arrow flame
+    * `--flame=[number]` Sets arrow flame fire ticks (default 100)
+    * `--damage=[number]` Sets arrow damage
 
 - `/spawnshulkerbullet [player]` Spawns a shulker bullet to a player
 
