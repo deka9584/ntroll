@@ -15,6 +15,7 @@ import craft.ncraft.ntroll.listeners.BlockBreakListener;
 import craft.ncraft.ntroll.listeners.BlockPlaceListener;
 import craft.ncraft.ntroll.listeners.EntityTargetListener;
 import craft.ncraft.ntroll.listeners.PlayerInteractListener;
+import craft.ncraft.ntroll.listeners.ProjectileListener;
 import craft.ncraft.ntroll.managers.TargetPlayerManager;
 import craft.ncraft.ntroll.managers.UnluckyBlocksManager;
 import craft.ncraft.ntroll.utils.Utils;
@@ -91,6 +92,7 @@ public class NTroll extends JavaPlugin {
         pm.registerEvents(new BlockPlaceListener(this), this);
         pm.registerEvents(new PlayerInteractListener(this), this);
         pm.registerEvents(new EntityTargetListener(this), this);
+        pm.registerEvents(new ProjectileListener(this), this);
     }
 
     public void reload() {

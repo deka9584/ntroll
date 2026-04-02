@@ -37,7 +37,7 @@ public class SpawnMobBehindCommand implements CommandExecutor {
 
             if (args.length > 1) {
                 Map<String, String> params = utils.extractCommandParams(args);
-                EntityType entityType = EntityUtils.getEntityTypeByName(args[0]);
+                EntityType entityType = EntityUtils.getEntityType(args[0]);
 
                 if (entityType == null || !entityType.isSpawnable()) {
                     cs.sendMessage(ChatColor.RED + "Entity not found or not spawnable");

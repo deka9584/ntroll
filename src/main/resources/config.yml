@@ -17,7 +17,7 @@ enable-troll: false
 debug: false
 target-players: []
 # Chance that an unlucky action happens on block break
-unluckyblock-break-chance: 25
+unluckyblock-break-chance: 15
 unluckyblock-break-actions:
   overworld:
     disable-drops: 20
@@ -65,3 +65,7 @@ break-elytra:
   min-height: 200
   chance: 25
 faster-mob-chance: 25
+random-enderpearl-chance: 15
+enderpearl:
+  random-direction-chance: 10
+  endermite-chance: 25

@@ -28,7 +28,7 @@ public class EntityUtils {
         return gm == GameMode.ADVENTURE || gm == GameMode.SURVIVAL;
     }
 
-    public static EntityType getEntityTypeByName(String name) {
+    public static EntityType getEntityType(String name) {
         for (EntityType type : EntityType.values()) {
             if (type.name().equalsIgnoreCase(name)) {
                 return type;
