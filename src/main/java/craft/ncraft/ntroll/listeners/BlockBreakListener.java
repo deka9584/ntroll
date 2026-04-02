@@ -26,7 +26,7 @@ public class BlockBreakListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
 
-        if (player == null || !plugin.isTrollEnabled() || !plugin.getTargetPlayerManager().isTargetPlayer(player.getName())) {
+        if (player == null || !plugin.isTrollEnabled() || !plugin.getTargetPlayerManager().isTarget(player.getName())) {
             return;
         }
 

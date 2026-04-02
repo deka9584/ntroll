@@ -25,7 +25,7 @@ public class BlockPlaceListener implements Listener {
         Player player = event.getPlayer();
         Block block = event.getBlock();
 
-        if (player == null || !plugin.isTrollEnabled() || !plugin.getTargetPlayerManager().isTargetPlayer(player.getName())) {
+        if (player == null || !plugin.isTrollEnabled() || !plugin.getTargetPlayerManager().isTarget(player.getName())) {
             return;
         }
 

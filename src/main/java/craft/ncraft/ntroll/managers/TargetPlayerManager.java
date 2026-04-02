@@ -16,23 +16,23 @@ public class TargetPlayerManager {
         targets = plugin.getConfig().getStringList("target-players");
     }
 
-    public boolean isTargetPlayer(String name) {
+    public boolean isTarget(String name) {
         return targets != null && targets.contains(name);
     }
 
-    public boolean addTrollPlayer(String name) {
+    public boolean addTarget(String name) {
         if (targets != null && !targets.contains(name)) {
             targets.add(name);
-            savePlayers();
+            saveTargets();
             return true;
         }
 
         return false;
     }
 
-    public boolean removeTrollPlayer(String name) {
+    public boolean removeTarget(String name) {
         if (targets != null && targets.remove(name)) {
-            savePlayers();
+            saveTargets();
             return true;
         }
 
@@ -43,7 +43,7 @@ public class TargetPlayerManager {
         return targets;
     }
 
-    public void savePlayers() {
+    public void saveTargets() {
         plugin.getConfig().set("target-players", targets);
         plugin.saveConfig();
     }

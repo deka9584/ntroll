@@ -24,52 +24,46 @@ public class ProjectileListener implements Listener {
         this.utils = plugin.getUtils();
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onProjectileLaunch(ProjectileLaunchEvent event) {
         Projectile projectile = event.getEntity();
+        ProjectileSource shooter = projectile.getShooter();
 
-        if (projectile instanceof EnderPearl) {
+        if (projectile instanceof EnderPearl && shooter instanceof Player) {
             EnderPearl pearl = (EnderPearl) projectile;
-            ProjectileSource shooter = pearl.getShooter();
+            Player player = (Player) shooter;
 
-            if (shooter instanceof Player) {
-                Player player = (Player) shooter;
+            if (!plugin.isTrollEnabled() || !plugin.getTargetPlayerManager().isTarget(player.getName())) {
+                return;
+            }
 
-                if (!plugin.isTrollEnabled() || !plugin.getTargetPlayerManager().isTargetPlayer(player.getName())) {
-                    return;
-                }
+            if (utils.chancePercent(plugin.getConfig().getInt("enderpearl.endermite-chance"))) {
+                Location loc = pearl.getLocation();
 
-                if (utils.chancePercent(plugin.getConfig().getInt("enderpearl.endermite-chance"))) {
-                    Location loc = pearl.getLocation();
+                loc.setYaw(loc.getYaw() + utils.getRandomInt(-10, 10));
+                loc.setPitch(loc.getPitch() + utils.getRandomInt(-10, 10));
 
-                    loc.setYaw(loc.getYaw() + utils.getRandomInt(-10, 10));
-                    loc.setPitch(loc.getPitch() + utils.getRandomInt(-10, 10));
-
-                    Vector dir = loc.getDirection();
-                    pearl.setVelocity(dir.multiply(pearl.getVelocity().length()));
-                }
+                Vector dir = loc.getDirection();
+                pearl.setVelocity(dir.multiply(pearl.getVelocity().length()));
             }
         }
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     public void onProjectileHit(ProjectileHitEvent event) {
         Projectile projectile = event.getEntity();
+        ProjectileSource shooter = projectile.getShooter();
 
-        if (projectile instanceof EnderPearl) {
+        if (projectile instanceof EnderPearl && shooter instanceof Player) {
             EnderPearl pearl = (EnderPearl) projectile;
-            ProjectileSource shooter = pearl.getShooter();
-            
-            if (shooter instanceof Player) {
-                Player player = (Player) shooter;
+            Player player = (Player) shooter;
 
-                if (!plugin.isTrollEnabled() || !plugin.getTargetPlayerManager().isTargetPlayer(player.getName())) {
-                    return;
-                }
+            if (!plugin.isTrollEnabled() || !plugin.getTargetPlayerManager().isTarget(player.getName())) {
+                return;
+            }
 
-                if (utils.chancePercent(plugin.getConfig().getInt("enderpearl.endermite-chance"))) {
-                    pearl.getWorld().spawnEntity(player.getLocation(), EntityType.ENDERMITE);
-                }
+            if (utils.chancePercent(plugin.getConfig().getInt("enderpearl.endermite-chance"))) {
+                pearl.getWorld().spawnEntity(player.getLocation(), EntityType.ENDERMITE);
             }
         }
     }

@@ -29,7 +29,7 @@ public class PlayerInteractListener implements Listener {
         Player player = event.getPlayer();
         Action action = event.getAction();
 
-        if (!plugin.isTrollEnabled() || !plugin.getTargetPlayerManager().isTargetPlayer(player.getName())) {
+        if (!plugin.isTrollEnabled() || !plugin.getTargetPlayerManager().isTarget(player.getName())) {
             return;
         }
 
