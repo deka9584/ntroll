@@ -6,23 +6,23 @@ import craft.ncraft.ntroll.NTroll;
 
 public class TargetPlayerManager {
     private final NTroll plugin;
-    private List<String> players;
+    private List<String> targets;
 
     public TargetPlayerManager(NTroll plugin) {
         this.plugin = plugin;
     }
 
     public void loadPlayers() {
-        players = plugin.getConfig().getStringList("target-players");
+        targets = plugin.getConfig().getStringList("target-players");
     }
 
     public boolean isTargetPlayer(String name) {
-        return players != null && players.contains(name);
+        return targets != null && targets.contains(name);
     }
 
     public boolean addTrollPlayer(String name) {
-        if (players != null && !players.contains(name)) {
-            players.add(name);
+        if (targets != null && !targets.contains(name)) {
+            targets.add(name);
             savePlayers();
             return true;
         }
@@ -31,7 +31,7 @@ public class TargetPlayerManager {
     }
 
     public boolean removeTrollPlayer(String name) {
-        if (players != null && players.remove(name)) {
+        if (targets != null && targets.remove(name)) {
             savePlayers();
             return true;
         }
@@ -39,12 +39,12 @@ public class TargetPlayerManager {
         return false;
     }
 
-    public List<String> getPlayers() {
-        return players;
+    public List<String> getTargetList() {
+        return targets;
     }
 
     public void savePlayers() {
-        plugin.getConfig().set("target-players", players);
+        plugin.getConfig().set("target-players", targets);
         plugin.saveConfig();
     }
 }

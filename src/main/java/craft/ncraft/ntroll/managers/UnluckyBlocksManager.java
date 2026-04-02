@@ -8,13 +8,12 @@ import java.util.Map;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Creeper;
-import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.MagmaCube;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Shulker;
 import org.bukkit.entity.Zombie;
 
 import craft.ncraft.ntroll.NTroll;
@@ -117,11 +116,21 @@ public class UnluckyBlocksManager {
         }
     }
 
-    public void spawnEnderman(Player player, boolean invisible) {
-        Entity entity = utils.spawnEntityBehindPlayer(EntityType.ENDERMAN, player, false);
+    public void spawnGenericMob(EntityType type, Player player, boolean invisible) {
+        Entity entity = utils.spawnEntityBehindPlayer(type, player, false);
 
-        if (entity instanceof Enderman) {
-            updateMobTarget((Enderman) entity, player, invisible);
+        if (entity instanceof Mob) {
+            updateMobTarget((Mob) entity, player, invisible);
+        }
+    }
+
+    public void spawnMagmaCube(Player player, boolean invisible) {
+        Entity entity = utils.spawnEntityBehindPlayer(EntityType.MAGMA_CUBE, player, false);
+
+        if (entity instanceof MagmaCube) {
+            MagmaCube magmacube = (MagmaCube) entity;
+            magmacube.setSize(utils.getRandomInt(1, 2));
+            updateMobTarget(magmacube, player, invisible);
         }
     }
 
@@ -157,14 +166,6 @@ public class UnluckyBlocksManager {
             pigZombie.setAngry(true);
             pigZombie.setBaby(baby);
             updateMobTarget(pigZombie, player, invisible);
-        }
-    }
-
-    public void spawnShulker(Player player, boolean invisible) {
-        Entity entity = utils.spawnEntityBehindPlayer(EntityType.SHULKER, player, false);
-
-        if (entity instanceof Shulker) {
-            updateMobTarget((Shulker) entity, player, invisible);
         }
     }
 

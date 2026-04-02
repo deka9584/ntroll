@@ -96,7 +96,7 @@ public class MainCommand implements CommandExecutor {
                     if (!hasPermission(cs, permission + ".admin", noperm))
                         return false;
                     String targetPlayers = String.join(" ,", plugin.getTargetPlayerManager()
-                            .getPlayers());
+                            .getTargetList());
                     cs.sendMessage(utils.getMsgFromCfg("target-player-list")
                             .replaceAll("%list%", targetPlayers));
                     return true;

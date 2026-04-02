@@ -66,7 +66,7 @@ public class CommandTab implements TabCompleter {
                     }
                     
                     if (args[0].equalsIgnoreCase("remove")) {
-                        return StringUtil.copyPartialMatches(args[1], plugin.getTargetPlayerManager().getPlayers(), completeSubCommand);
+                        return StringUtil.copyPartialMatches(args[1], plugin.getTargetPlayerManager().getTargetList(), completeSubCommand);
                     }
                 }
                 break;

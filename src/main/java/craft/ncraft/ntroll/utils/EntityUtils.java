@@ -66,7 +66,8 @@ public class EntityUtils {
             AttributeInstance scale = mob.getAttribute(Attribute.valueOf("GENERIC_SCALE"));
 
             if (scale != null && scale.getValue() != scale.getDefaultValue()) {
-                return setMobScale(mob, scale.getDefaultValue());
+                scale.setBaseValue(scale.getDefaultValue());
+                return true;
             }
         } catch (IllegalArgumentException e) {
             Bukkit.getLogger().warning("GENERIC_SCALE attribute is not available on this server version");

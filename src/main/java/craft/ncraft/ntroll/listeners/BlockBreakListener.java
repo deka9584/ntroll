@@ -3,6 +3,7 @@ package craft.ncraft.ntroll.listeners;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -52,10 +53,10 @@ public class BlockBreakListener implements Listener {
                     ubm.spawnCreeper(player, true, true);
                     break;
                 case "spawn-enderman":
-                    ubm.spawnEnderman(player, false);
+                    ubm.spawnGenericMob(EntityType.ENDERMAN, player, false);
                     break;
                 case "spawn-invisible-enderman":
-                    ubm.spawnEnderman(player, true);
+                    ubm.spawnGenericMob(EntityType.ENDERMAN, player, true);
                     break;
                 case "spawn-silverfish":
                     ubm.spawnSilverfish(player, block, false);
@@ -73,7 +74,7 @@ public class BlockBreakListener implements Listener {
                     ubm.spawnPigZombie(player, true, false);
                     break;
                 case "spawn-shulker":
-                    ubm.spawnShulker(player, false);
+                    ubm.spawnGenericMob(EntityType.SHULKER, player, false);
                     break;
                 case "spawn-shulker-bullet":
                     utils.spawnShulkerBulletToPlayer(player);
@@ -83,6 +84,12 @@ public class BlockBreakListener implements Listener {
                     break;
                 case "spawn-fireball":
                     utils.spawnFireballToPlayer(player, true);
+                    break;
+                case "spawn-skeleton":
+                    ubm.spawnGenericMob(EntityType.SKELETON, player, false);
+                    break;
+                case "spawn-magmacube":
+                    ubm.spawnMagmaCube(player, false);
                     break;
                 case "disable-drops":
                     event.setDropItems(false);
