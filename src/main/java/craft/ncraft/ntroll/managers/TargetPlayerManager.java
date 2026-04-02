@@ -6,45 +6,45 @@ import craft.ncraft.ntroll.NTroll;
 
 public class TargetPlayerManager {
     private final NTroll plugin;
-    private List<String> players;
+    private List<String> targets;
 
     public TargetPlayerManager(NTroll plugin) {
         this.plugin = plugin;
     }
 
     public void loadPlayers() {
-        players = plugin.getConfig().getStringList("target-players");
+        targets = plugin.getConfig().getStringList("target-players");
     }
 
-    public boolean isTargetPlayer(String name) {
-        return players != null && players.contains(name);
+    public boolean isTarget(String name) {
+        return targets != null && targets.contains(name);
     }
 
-    public boolean addTrollPlayer(String name) {
-        if (players != null && !players.contains(name)) {
-            players.add(name);
-            savePlayers();
+    public boolean addTarget(String name) {
+        if (targets != null && !targets.contains(name)) {
+            targets.add(name);
+            saveTargets();
             return true;
         }
 
         return false;
     }
 
-    public boolean removeTrollPlayer(String name) {
-        if (players != null && players.remove(name)) {
-            savePlayers();
+    public boolean removeTarget(String name) {
+        if (targets != null && targets.remove(name)) {
+            saveTargets();
             return true;
         }
 
         return false;
     }
 
-    public List<String> getPlayers() {
-        return players;
+    public List<String> getTargetList() {
+        return targets;
     }
 
-    public void savePlayers() {
-        plugin.getConfig().set("target-players", players);
+    public void saveTargets() {
+        plugin.getConfig().set("target-players", targets);
         plugin.saveConfig();
     }
 }

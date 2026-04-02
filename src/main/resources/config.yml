@@ -17,12 +17,13 @@ enable-troll: false
 debug: false
 target-players: []
 # Chance that an unlucky action happens on block break
-unluckyblock-break-chance: 25
+unluckyblock-break-chance: 15
 unluckyblock-break-actions:
   overworld:
     disable-drops: 20
     cancel-break: 10
-    destroy-item: 10
+    destroy-item: 5
+    spawn-skeleton: 5
     spawn-creeper: 5
     spawn-invisible-creeper: 5
     spawn-invisible-charged-creeper: 5
@@ -39,8 +40,9 @@ unluckyblock-break-actions:
     disable-drops: 30
     cancel-break: 20
     spawn-enderman: 10
-    spawn-arrow: 10
     destroy-item: 10
+    spawn-magmacube: 5
+    spawn-arrow: 5
     spawn-pig-zombie: 5
     spawn-baby-pig-zombie: 5
     place-obsidian: 5
@@ -63,3 +65,7 @@ break-elytra:
   min-height: 200
   chance: 25
 faster-mob-chance: 25
+random-enderpearl-chance: 15
+enderpearl:
+  random-direction-chance: 10
+  endermite-chance: 25

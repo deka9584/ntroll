@@ -30,7 +30,7 @@ public class EntityTargetListener implements Listener {
             Mob mob = (Mob) entity;
             Player targetPlayer = (Player) target;
             
-            if (!plugin.isTrollEnabled() || !plugin.getTargetPlayerManager().isTargetPlayer(targetPlayer.getName())) {
+            if (!plugin.isTrollEnabled() || !plugin.getTargetPlayerManager().isTarget(targetPlayer.getName())) {
                 return;
             }
 

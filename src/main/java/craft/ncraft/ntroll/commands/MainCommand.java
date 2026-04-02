@@ -71,7 +71,7 @@ public class MainCommand implements CommandExecutor {
                         cs.sendMessage(ChatColor.RED + "Usage: add [player]");
                         return false;
                     }
-                    if (plugin.getTargetPlayerManager().addTrollPlayer(args[1])) {
+                    if (plugin.getTargetPlayerManager().addTarget(args[1])) {
                         cs.sendMessage(utils.getMsgFromCfg("added-player-msg")
                                 .replaceAll("%player%", args[1]));
                         return true;
@@ -85,7 +85,7 @@ public class MainCommand implements CommandExecutor {
                         cs.sendMessage(ChatColor.RED + "Usage: remove [player]");
                         return false;
                     }
-                    if (plugin.getTargetPlayerManager().removeTrollPlayer(args[1])) {
+                    if (plugin.getTargetPlayerManager().removeTarget(args[1])) {
                         cs.sendMessage(utils.getMsgFromCfg("removed-player-msg")
                                 .replaceAll("%player%", args[1]));
                         return true;
@@ -96,7 +96,7 @@ public class MainCommand implements CommandExecutor {
                     if (!hasPermission(cs, permission + ".admin", noperm))
                         return false;
                     String targetPlayers = String.join(" ,", plugin.getTargetPlayerManager()
-                            .getPlayers());
+                            .getTargetList());
                     cs.sendMessage(utils.getMsgFromCfg("target-player-list")
                             .replaceAll("%list%", targetPlayers));
                     return true;
