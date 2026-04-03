@@ -2,7 +2,6 @@ package craft.ncraft.ntroll.commands;
 
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -47,7 +46,7 @@ public class SpawnMobBehindCommand implements CommandExecutor {
                 Player target = plugin.getServer().getPlayer(args[1]);
 
                 if (target == null) {
-                    utils.getMsgFromCfg("player-not-found");
+                    cs.sendMessage(utils.getMsgFromCfg("player-not-found-msg"));
                     return false;
                 }
 
@@ -77,8 +76,8 @@ public class SpawnMobBehindCommand implements CommandExecutor {
                     if (params.containsKey("--scale")) {
                         String scale = params.get("--scale");
 
-                        if (scale.isEmpty() || !StringUtils.isNumeric(scale) || !EntityUtils.setMobScale(mob, Double.parseDouble(scale))) {
-                            cs.sendMessage(utils.getMsgFromCfg("unable-to-apply-flag")
+                        if (!utils.validateNumericInput(scale, false) || !EntityUtils.setMobScale(mob, Double.parseDouble(scale))) {
+                            cs.sendMessage(utils.getMsgFromCfg("unable-to-apply-flag-msg")
                                 .replaceAll("%flag%", "--scale")
                                 .replaceAll("%value%", scale)
                             );
@@ -86,7 +85,11 @@ public class SpawnMobBehindCommand implements CommandExecutor {
                     }
                 }
 
-                cs.sendMessage(ChatColor.GREEN + "Spawned entity " + entityType.name() + " to player " + target.getName());
+                cs.sendMessage(utils.getMsgFromCfg("spawn-success-msg")
+                    .replaceAll("%entity%", entityType.name())
+                    .replaceAll("%player%", target.getName())
+                );
+                
                 return true;
             }
 

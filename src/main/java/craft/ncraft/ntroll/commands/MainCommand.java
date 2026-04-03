@@ -95,7 +95,7 @@ public class MainCommand implements CommandExecutor {
                         return false;
                     String targetPlayers = String.join(" ,", plugin.getTargetPlayerManager()
                             .getTargetList());
-                    cs.sendMessage(utils.getMsgFromCfg("target-player-list")
+                    cs.sendMessage(utils.getMsgFromCfg("target-player-list-msg")
                             .replaceAll("%list%", targetPlayers));
                     return true;
 
@@ -104,12 +104,12 @@ public class MainCommand implements CommandExecutor {
                         return false;
                     String breakActions = String.join("\n", plugin.getUnluckyBlocksManager()
                             .getActionsNameList());
-                    cs.sendMessage(utils.getMsgFromCfg("break-action-list")
+                    cs.sendMessage(utils.getMsgFromCfg("break-action-list-msg")
                             .replaceAll("%list%", breakActions));
                     return true;
 
                 case "help":
-                    cs.sendMessage(utils.getMsgFromCfg("backup-reminder"));
+                    cs.sendMessage(utils.getMsgFromCfg("backup-reminder-msg"));
                     cs.sendMessage(ChatColor.GOLD +
                             "Subcommands: on, off, status, add [player], remove [player], " +
                             "list, break-actions");

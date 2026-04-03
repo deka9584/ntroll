@@ -2,7 +2,6 @@ package craft.ncraft.ntroll.commands;
 
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -39,7 +38,7 @@ public class SpawnArrowCommand implements CommandExecutor {
             Player player = plugin.getServer().getPlayer(args[0]);
 
             if (player == null) {
-                utils.getMsgFromCfg("player-not-found");
+                cs.sendMessage(utils.getMsgFromCfg("player-not-found-msg"));
                 return false;
             }
 
@@ -57,23 +56,31 @@ public class SpawnArrowCommand implements CommandExecutor {
             
             if (params.containsKey("--flame")) {
                 String flame = params.get("--flame");
-                arrow.setFireTicks(!flame.isEmpty() && StringUtils.isNumeric(flame) ? Integer.parseInt(flame) : 100);
+
+                arrow.setFireTicks(utils.validateNumericInput(flame, false)
+                    ? Integer.parseInt(flame)
+                    : 100
+                );
             }
 
             if (params.containsKey("--damage")) {
                 String damage = params.get("--damage");
 
-                if (!damage.isEmpty() && StringUtils.isNumeric(damage)) {
+                if (utils.validateNumericInput(damage, false)) {
                     arrow.setDamage(Double.parseDouble(damage));
                 } else {
-                    cs.sendMessage(utils.getMsgFromCfg("unable-to-apply-flag")
+                    cs.sendMessage(utils.getMsgFromCfg("unable-to-apply-flag-msg")
                         .replaceAll("%flag%", "--damage")
                         .replaceAll("%value%", damage)
                     );
                 }
             }
 
-            cs.sendMessage(ChatColor.GREEN + "Spawned arrow to " + player.getName());
+            cs.sendMessage(utils.getMsgFromCfg("spawn-success-msg")
+                .replaceAll("%entity%", "ARROW")
+                .replaceAll("%player%", player.getName())
+            );
+
             return true;
         }
 

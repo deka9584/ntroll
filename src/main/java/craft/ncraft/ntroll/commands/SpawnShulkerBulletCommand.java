@@ -36,7 +36,7 @@ public class SpawnShulkerBulletCommand implements CommandExecutor {
             Player player = plugin.getServer().getPlayer(args[0]);
 
             if (player == null) {
-                utils.getMsgFromCfg("player-not-found");
+                cs.sendMessage(utils.getMsgFromCfg("player-not-found-msg"));
                 return false;
             }
 
@@ -47,7 +47,11 @@ public class SpawnShulkerBulletCommand implements CommandExecutor {
                 return false;
             }
 
-            cs.sendMessage(ChatColor.GREEN + "Spawned bullet to " + player.getName());
+            cs.sendMessage(utils.getMsgFromCfg("spawn-success-msg")
+                .replaceAll("%entity%", "SHULKER BULLET")
+                .replaceAll("%player%", player.getName())
+            );
+
             return true;
         }
 
