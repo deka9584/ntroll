@@ -45,6 +45,7 @@ public class ProjectileListener implements Listener {
 
                 Vector dir = loc.getDirection();
                 pearl.setVelocity(dir.multiply(pearl.getVelocity().length()));
+                plugin.debugLog("Changing enderpearl direction to " + player.getName());
             }
         }
     }
@@ -64,6 +65,7 @@ public class ProjectileListener implements Listener {
 
             if (utils.chancePercent(plugin.getConfig().getInt("enderpearl.endermite-chance"))) {
                 pearl.getWorld().spawnEntity(pearl.getLocation(), EntityType.ENDERMITE);
+                plugin.debugLog("Spawning endermite to " + player.getName());
             }
         }
     }
