@@ -1,5 +1,5 @@
 name: NTroll
-version: "1.0"
+version: "1.2"
 author: NCraft
 main: craft.ncraft.ntroll.NTroll
 api-version: '1.15'
