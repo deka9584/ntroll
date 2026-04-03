@@ -70,6 +70,10 @@ public class Utils {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
+    public boolean validateNumericInput(String string, boolean allowNegative) {
+        return allowNegative ? string.matches("^-?\\d+(\\.\\d+)?$") : string.matches("^\\d+(\\.\\d+)?$");
+    }
+
     public Arrow spawnArrowToPlayer(Player player) {
         Location playerEyeLoc = player.getEyeLocation();
 

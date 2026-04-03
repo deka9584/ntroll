@@ -1,16 +1,17 @@
 prefix: "&c&lNTroll &8&l»"
 no-permission-msg: "%prefix% &cDai bro fai il serio..."
-config-reloaded-msg: "%prefix% &6Config reloaded"
+config-reloaded-msg: "%prefix% &6Configurazione ricaricata!"
 troll-enabled-msg: "%prefix% &aTroll plugin abilitato! (fatto backup?)"
 troll-disabled-msg: "%prefix% &cTroll plugin disabilitato!"
 troll-status-msg: "%prefix% &6Il troll plugin è %status%!"
 added-player-msg: "%prefix% &6Player %player% è stato aggiunto!"
 removed-player-msg: "%prefix% &6Player %player% è stato rimosso!"
-target-player-list: "%prefix% &6Giocatori aggiunti: %list%"
-break-action-list: "%prefix% &6Azioni rottura blocchi: \n%list%"
-backup-reminder: "%prefix% &6IMPORTANTE: Fare sempre il backup del server prima di attivare"
-player-not-found: "%prefix% &cPlayer not found"
-unable-to-apply-flag: "%prefix% &cUnable to apply flag %flag% with value %value%"
+target-player-list-msg: "%prefix% &6Giocatori aggiunti: %list%"
+break-action-list-msg: "%prefix% &6Azioni rottura blocchi: \n%list%"
+backup-reminder-msg: "%prefix% &6IMPORTANTE: Fare sempre il backup del server prima di attivare"
+player-not-found-msg: "%prefix% &cPlayer non trovato"
+spawn-success-msg: "%prefix% &a%entity% spawnato a %player%"
+unable-to-apply-flag-msg: "%prefix% &cImpossibile applicare il flag %flag% con valore %value%"
 # ENABLE THE ENTIRE PLUGIN
 # Backup the server before!
 enable-troll: false
