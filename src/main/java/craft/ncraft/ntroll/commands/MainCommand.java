@@ -43,8 +43,7 @@ public class MainCommand implements CommandExecutor {
                 case "on":
                     if (!hasPermission(cs, permission + ".admin", noperm) || checkTrollBeEnable(cs, false))
                         return false;
-                    plugin.getConfig().set("enable-troll", true);
-                    plugin.saveConfig();
+                    plugin.setTrollEnabled(true);
                     cs.sendMessage(utils.getMsgFromCfg("troll-enabled-msg"));
                     return true;
 
@@ -52,8 +51,7 @@ public class MainCommand implements CommandExecutor {
                 case "off":
                     if (!hasPermission(cs, permission + ".admin", noperm) || checkTrollBeEnable(cs, true))
                         return false;
-                    plugin.getConfig().set("enable-troll", false);
-                    plugin.saveConfig();
+                    plugin.setTrollEnabled(false);
                     cs.sendMessage(utils.getMsgFromCfg("troll-disabled-msg"));
                     return true;
 

@@ -66,7 +66,10 @@ public class SpawnArrowCommand implements CommandExecutor {
                 if (!damage.isEmpty() && StringUtils.isNumeric(damage)) {
                     arrow.setDamage(Double.parseDouble(damage));
                 } else {
-                    utils.getMsgFromCfg("unable-to-apply-flag").replace("%flag%", "--damage").replace("%value%", damage);
+                    cs.sendMessage(utils.getMsgFromCfg("unable-to-apply-flag")
+                        .replaceAll("%flag%", "--damage")
+                        .replaceAll("%value%", damage)
+                    );
                 }
             }
 

@@ -1,6 +1,6 @@
 prefix: "&c&lNTroll &8&l»"
 no-permission-msg: "%prefix% &cDai bro fai il serio..."
-config-reloaded-msg: "%prefix% &6Config reloaded..."
+config-reloaded-msg: "%prefix% &6Config reloaded"
 troll-enabled-msg: "%prefix% &aTroll plugin abilitato! (fatto backup?)"
 troll-disabled-msg: "%prefix% &cTroll plugin disabilitato!"
 troll-status-msg: "%prefix% &6Il troll plugin è %status%!"
@@ -18,6 +18,12 @@ debug: false
 target-players: []
 # Chance that an unlucky action happens on block break
 unluckyblock-break-chance: 15
+# Valid actions:
+# disable-drops, cancel-break, destroy-item, spawn-skeleton, spawn-creeper, spawn-invisible-creeper,
+# spawn-invisible-charged-creeper, spawn-enderman, spawn-invisible-enderman, spawn-silverfish,
+# spawn-baby-zombie, spawn-invisible-silverfish, spawn-arrow, place-bedrock, place-obsidian,
+# explosion, spawn-magmacube, spawn-pig-zombie, spawn-baby-pig-zombie, spawn-fireball, spawn-shulker,
+# spawn-shulker-bullet
 unluckyblock-break-actions:
   overworld:
     disable-drops: 20

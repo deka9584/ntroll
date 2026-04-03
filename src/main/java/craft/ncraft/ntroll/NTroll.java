@@ -53,7 +53,7 @@ public class NTroll extends JavaPlugin {
         registerEvents();
         
         unluckyBlocksManager.loadActions();
-        targetPlayerManager.loadPlayers();
+        targetPlayerManager.loadTargets();
 
         getLogger().log(Level.INFO, "{0}.onEnable()", this.getClass().getName());
     }
@@ -98,7 +98,12 @@ public class NTroll extends JavaPlugin {
     public void reload() {
         reloadConfig();
         unluckyBlocksManager.loadActions();
-        targetPlayerManager.loadPlayers();
+        targetPlayerManager.loadTargets();
+    }
+
+    public void setTrollEnabled(boolean status) {
+        getConfig().set("enable-troll", status);
+        saveConfig();
     }
 
     public static NTroll getInstance() {

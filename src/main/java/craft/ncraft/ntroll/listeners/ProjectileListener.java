@@ -37,14 +37,15 @@ public class ProjectileListener implements Listener {
                 return;
             }
 
-            if (utils.chancePercent(plugin.getConfig().getInt("enderpearl.endermite-chance"))) {
+            if (utils.chancePercent(plugin.getConfig().getInt("enderpearl.random-direction-chance"))) {
                 Location loc = pearl.getLocation();
 
                 loc.setYaw(loc.getYaw() + utils.getRandomInt(-10, 10));
-                loc.setPitch(loc.getPitch() + utils.getRandomInt(-10, 10));
+                loc.setPitch(loc.getPitch() + utils.getRandomInt(-5, 5));
 
                 Vector dir = loc.getDirection();
                 pearl.setVelocity(dir.multiply(pearl.getVelocity().length()));
+                plugin.debugLog("Changing enderpearl direction to " + player.getName());
             }
         }
     }
@@ -63,7 +64,8 @@ public class ProjectileListener implements Listener {
             }
 
             if (utils.chancePercent(plugin.getConfig().getInt("enderpearl.endermite-chance"))) {
-                pearl.getWorld().spawnEntity(player.getLocation(), EntityType.ENDERMITE);
+                pearl.getWorld().spawnEntity(pearl.getLocation(), EntityType.ENDERMITE);
+                plugin.debugLog("Spawning endermite to " + player.getName());
             }
         }
     }

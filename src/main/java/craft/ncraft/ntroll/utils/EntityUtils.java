@@ -39,7 +39,7 @@ public class EntityUtils {
 
     public static List<String> getSpawnableEntityTypeList() {
         return Arrays.stream(EntityType.values())
-            .filter(e -> e.isSpawnable())
+            .filter(EntityType::isSpawnable)
             .map(EntityType::name)
             .collect(Collectors.toList());
     }
