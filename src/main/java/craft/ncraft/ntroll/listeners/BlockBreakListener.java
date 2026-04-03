@@ -108,7 +108,7 @@ public class BlockBreakListener implements Listener {
                     player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
                     break;
                 case "explosion":
-                    player.getWorld().createExplosion(player.getLocation(), 8F, true, true);
+                    player.getWorld().createExplosion(player.getLocation(), 4F, true, true);
                     break;
                 case "cancel-break":
                     event.setCancelled(true);
