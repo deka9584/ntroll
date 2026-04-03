@@ -12,7 +12,7 @@ public class TargetPlayerManager {
         this.plugin = plugin;
     }
 
-    public void loadPlayers() {
+    public void loadTargets() {
         targets = plugin.getConfig().getStringList("target-players");
     }
 
