@@ -78,7 +78,10 @@ public class SpawnMobBehindCommand implements CommandExecutor {
                         String scale = params.get("--scale");
 
                         if (scale.isEmpty() || !StringUtils.isNumeric(scale) || !EntityUtils.setMobScale(mob, Double.parseDouble(scale))) {
-                            utils.getMsgFromCfg("unable-to-apply-flag").replace("%flag%", "--scale").replace("%value%", scale);
+                            cs.sendMessage(utils.getMsgFromCfg("unable-to-apply-flag")
+                                .replaceAll("%flag%", "--scale")
+                                .replaceAll("%value%", scale)
+                            );
                         }
                     }
                 }
