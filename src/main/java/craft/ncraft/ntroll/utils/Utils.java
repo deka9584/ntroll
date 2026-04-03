@@ -72,7 +72,10 @@ public class Utils {
 
     public Arrow spawnArrowToPlayer(Player player) {
         Location playerEyeLoc = player.getEyeLocation();
-        Vector playerDir = playerEyeLoc.getDirection().setY(0).normalize();
+
+        Vector playerDir = playerEyeLoc.getDirection()
+            .setY(0)
+            .normalize();
 
         Location behind = playerEyeLoc.clone()
             .subtract(playerDir.multiply(2))
@@ -104,14 +107,17 @@ public class Utils {
             .setY(0)
             .normalize();
 
-        Location behind = playerLoc.clone().subtract(direction.multiply(2));
+        Location behind = playerLoc.clone()
+            .subtract(direction.multiply(2))
+            .add(0.5, 0, 0.5);
+
         Location feet = behind.clone();
         Location head = behind.clone().add(0, 1, 0);
         Location ground = behind.clone().subtract(0, 1, 0);
 
         if (feet.getBlock().isPassable() && head.getBlock().isPassable() && ground.getBlock().getType().isSolid()) {
             plugin.debugLog("Spawning entity behind player, Entity: " + entityType.name());
-            return player.getWorld().spawnEntity(behind.add(0.5, 0, 0.5), entityType);
+            return player.getWorld().spawnEntity(behind, entityType);
         }
         
         if (force) {
@@ -130,12 +136,13 @@ public class Utils {
             .setY(0)
             .normalize();
 
-        Location behind = playerLoc.clone().subtract(direction.multiply(6));
+        Location behind = playerLoc.clone()
+            .subtract(direction.multiply(6))
+            .add(0.5, 0.5, 0.5);
 
         if (behind.getBlock().isPassable()) {
             plugin.debugLog("Spawning shulker bullet behind player " + player.getName());
-            
-            Entity entity = player.getWorld().spawnEntity(behind.add(0.5, 0.5, 0.5), EntityType.SHULKER_BULLET);
+            Entity entity = player.getWorld().spawnEntity(behind, EntityType.SHULKER_BULLET);
 
             if (entity instanceof ShulkerBullet) {
                 ShulkerBullet bullet = (ShulkerBullet) entity;
@@ -155,11 +162,12 @@ public class Utils {
             .setY(0)
             .normalize();
 
-        Location behind = playerLoc.clone().subtract(direction.multiply(3));
+        Location behind = playerLoc.clone()
+            .subtract(direction.multiply(3))
+            .add(0.5, 0.5, 0.5);
 
         if (behind.getBlock().isPassable()) {
-            plugin.debugLog("Spawning shulker bullet behind player " + player.getName());
-            behind.add(0.5, 0.5, 0.5);
+            plugin.debugLog("Spawning fireball behind player " + player.getName());
             Entity entity = player.getWorld().spawnEntity(behind, EntityType.FIREBALL);
 
             if (entity instanceof Fireball) {
@@ -170,7 +178,6 @@ public class Utils {
                     .normalize());
 
                 fireball.setIsIncendiary(incendiary);
-
                 return fireball;
             }
         }
