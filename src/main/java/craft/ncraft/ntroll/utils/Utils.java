@@ -62,12 +62,16 @@ public class Utils {
         return translateColorCodes(plugin.getConfig().getString(path).replaceAll("%prefix%", prefix));
     }
 
-    public String translateColorCodes(String string) {
-        return ChatColor.translateAlternateColorCodes('&', string);
-    }
-
     public int getRandomInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
+    }
+
+    public Location normalizeBlockLocation(Location loc) {
+        return loc.getBlock().getLocation().add(0.5, 0, 0.5);
+    }
+
+    public String translateColorCodes(String string) {
+        return ChatColor.translateAlternateColorCodes('&', string);
     }
 
     public boolean validateNumericInput(String string, boolean allowNegative) {
@@ -111,9 +115,8 @@ public class Utils {
             .setY(0)
             .normalize();
 
-        Location behind = playerLoc.clone()
-            .subtract(direction.multiply(2))
-            .add(0.5, 0, 0.5);
+        Location behind = normalizeBlockLocation(playerLoc)
+            .subtract(direction.multiply(2));
 
         Location feet = behind.clone();
         Location head = behind.clone().add(0, 1, 0);
@@ -140,9 +143,8 @@ public class Utils {
             .setY(0)
             .normalize();
 
-        Location behind = playerLoc.clone()
-            .subtract(direction.multiply(6))
-            .add(0.5, 0.5, 0.5);
+        Location behind = normalizeBlockLocation(playerLoc)
+            .subtract(direction.multiply(6));
 
         if (behind.getBlock().isPassable()) {
             plugin.debugLog("Spawning shulker bullet behind player " + player.getName());
@@ -166,9 +168,8 @@ public class Utils {
             .setY(0)
             .normalize();
 
-        Location behind = playerLoc.clone()
-            .subtract(direction.multiply(3))
-            .add(0.5, 0.5, 0.5);
+        Location behind = normalizeBlockLocation(playerLoc)
+            .subtract(direction.multiply(3));
 
         if (behind.getBlock().isPassable()) {
             plugin.debugLog("Spawning fireball behind player " + player.getName());
